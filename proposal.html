@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</title>
+<style>
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Tajawal';
+  src: url('fonts/Tajawal-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+:root {
+  --blue: #0b3b6f;
+  --green: #12806a;
+  --red: #b03a2e;
+  --ink: #1e2f42;
+  --line: #d8e6f3;
+  --soft: #f2f7fc;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@page { size: A4; margin: 0; }
+body {
+  font-family: 'Tajawal', sans-serif;
+  color: var(--ink);
+  font-size: 10pt;
+  line-height: 1.65;
+}
+.page {
+  width: 210mm;
+  height: 297mm;
+  padding: 15mm 17mm 20mm;
+  position: relative;
+  page-break-after: always;
+  overflow: hidden;
+  background: #fff;
+}
+.page.tight { padding-top: 12mm; }
+.page.tight h2 { margin: 14px 0 10px; }
+.page.tight .stage { padding: 11px; margin-bottom: 9px; }
+.page.tight ul.plain li { margin-bottom: 6px; }
+.page.tight .note { margin-top: 10px; }
+
+/* ===== الغلاف ===== */
+.cover {
+  background: linear-gradient(150deg, #0b3b6f 20%, #0e5a66 60%, #12806a 100%);
+  border-radius: 14px;
+  padding: 30px 32px 34px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.cover .kicker {
+  font-size: 10pt;
+  opacity: .82;
+  margin-bottom: 8px;
+}
+.cover h1 {
+  font-size: 23pt;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.cover p {
+  font-size: 10.5pt;
+  opacity: .92;
+  line-height: 1.8;
+}
+
+/* ===== عناوين الأقسام ===== */
+h2 {
+  font-size: 15.5pt;
+  color: var(--blue);
+  border-right: 5px solid var(--green);
+  padding-right: 12px;
+  margin: 20px 0 14px;
+}
+h2 .n { color: var(--green); }
+h3.sub {
+  font-size: 11.5pt;
+  color: var(--blue);
+  text-align: center;
+  margin: 14px 0 10px;
+}
+p.lead { margin-bottom: 6px; }
+
+/* ===== كروت المشاكل ===== */
+.prob {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-right: 4px solid var(--red);
+  border-radius: 8px;
+  padding: 9px 14px;
+  margin-bottom: 10px;
+  font-size: 10pt;
+}
+.prob b { color: var(--red); }
+
+/* ===== صناديق الملاحظات ===== */
+.note {
+  border-radius: 8px;
+  padding: 11px 15px;
+  font-size: 10pt;
+  margin-top: 14px;
+}
+.note.green { background: #eaf7f1; border-right: 4px solid var(--green); }
+.note.green b { color: var(--green); }
+.note.yellow { background: #fdf8e4; border-right: 4px solid #d4a017; }
+.note.yellow b { color: #8a6d00; }
+
+/* ===== كروت المميزات (صفحة 2) ===== */
+.cols { display: flex; gap: 16px; margin-top: 14px; }
+.cols .col { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.feat {
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 17px;
+  flex: 1;
+}
+.feat h3 {
+  color: var(--blue);
+  font-size: 13pt;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.feat h3 .badge {
+  background: var(--blue);
+  color: #fff;
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11pt;
+}
+ul.dots { list-style: none; }
+ul.dots li {
+  padding-right: 14px;
+  position: relative;
+  margin-bottom: 5px;
+  font-size: 9.8pt;
+}
+ul.dots li::before {
+  content: '•';
+  color: var(--blue);
+  position: absolute;
+  right: 0;
+  font-weight: 700;
+}
+ul.dots li b { color: var(--blue); }
+
+/* ===== جدول المقارنة (صفحة 3) ===== */
+table.cmp {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.8pt;
+  margin-top: 10px;
+}
+.cmp th {
+  background: var(--blue);
+  color: #fff;
+  padding: 9px 12px;
+  font-size: 10.5pt;
+  border: 1px solid var(--blue);
+}
+.cmp td {
+  border: 1px solid var(--line);
+  padding: 9px 12px;
+  vertical-align: top;
+  width: 50%;
+}
+.cmp tr:nth-child(even) td { background: #f4f8fc; }
+.cmp .now { color: var(--red); }
+.cmp .new { color: var(--green); }
+
+/* ===== كروت المراحل (صفحة 4) ===== */
+.stage {
+  display: flex;
+  gap: 16px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+  align-items: stretch;
+}
+.stage .num {
+  background: linear-gradient(165deg, #0b3b6f, #12806a);
+  color: #fff;
+  border-radius: 9px;
+  min-width: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+}
+.stage .num .d { font-size: 17pt; font-weight: 700; }
+.stage .num .l { font-size: 8pt; margin-top: 4px; }
+.stage .body { flex: 1; }
+.stage .body h4 {
+  color: var(--blue);
+  font-size: 12pt;
+  margin-bottom: 5px;
+}
+.stage ul.dots li::before { color: var(--green); }
+.stage ul.dots li b { color: var(--green); }
+
+/* ===== قوائم عامة بلا كروت ===== */
+ul.plain { list-style: none; }
+ul.plain li {
+  padding-right: 16px;
+  position: relative;
+  margin-bottom: 8px;
+  font-size: 10pt;
+}
+ul.plain li::before {
+  content: '•';
+  color: var(--green);
+  position: absolute;
+  right: 0;
+  font-weight: 700;
+}
+ul.plain li b { color: var(--blue); }
+
+/* ===== الفوتر ===== */
+.foot {
+  position: absolute;
+  bottom: 11mm;
+  right: 17mm;
+  left: 17mm;
+  border-top: 1px solid var(--line);
+  padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 8.5pt;
+  color: var(--blue);
+}
+.foot .pg { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- ==================== صفحة 1 ==================== -->
+<div class="page">
+  <div class="cover">
+    <div class="kicker">مقترح مشروع طلاب لخدمة الجامعة</div>
+    <h1>نظام إدارة وتتبع حافلات نقل الطلاب</h1>
+    <p>تطبيق جوال متكامل يحل محل مجموعة الواتساب الحالية، ويوفّر تتبعاً لحظياً للحافلات، وحجز المواعيد، وإشعارات ذكية – لتحسين تجربة النقل الجامعي وتقليل العشوائية في الركوب والمواعيد.</p>
+  </div>
+
+  <h2><span class="n">1.</span> الوضع الحالي</h2>
+  <p class="lead">يعتمد تنظيم رحلات الحافلات حالياً على مجموعة واتساب يقوم فيها المشرفون بنشر كل شيء يدوياً كنصوص: أرقام الحافلات وخطوط السير ومواعيد المحطات وأرقام هواتف السائقين، بالإضافة إلى تحديثات حالة («الحافلة عند البوابة – ستتحرك خلال 5 دقائق») واستفتاءات لقياس الطلب على مواعيد اليوم التالي.</p>
+
+  <h3 class="sub">المشاكل التي تظهرها الممارسة الحالية</h3>
+
+  <div class="prob"><b>معلومات مدفونة في الرسائل:</b> مواعيد الرحلات تُكتب كنص يدوي وتضيع بين مئات الرسائل؛ الطالب يضطر للبحث أو السؤال المتكرر.</div>
+  <div class="prob"><b>لا يوجد تتبع فعلي للحافلة:</b> الطالب لا يعرف أين الحافلة الآن، فيتصل بالسائق مباشرة وكثرة، أو ينتظر في المحطة دون معلومة موثوقة.</div>
+  <div class="prob"><b>قياس الطلب بدائي:</b> استفتاءات الواتساب على مواعيد الغد تضيع نتائجها، وإلغاء المواعيد يتم بإعلان نصي قد لا يصل لصاحب الشأن.</div>
+  <div class="prob"><b>التحقق من الهوية يدوي:</b> قاعدة «لا كارنية = لا ركوب» تُنفذ يدوياً وتستهلك وقتاً عند البوابة.</div>
+  <div class="prob"><b>أرقام السائقين منشورة للجميع:</b> كشف بيانات شخصية واتصالات عشوائية على رحلات لا تعنيهم.</div>
+  <div class="prob"><b>لا بيانات تشغيلية:</b> لا يوجد سجل دقيق لأعداد الركاب، أو الالتزام بالمواعيد، أو الخطوط الأعلى طلباً – فلا سبيل لتحسين الخدمة بالأرقام.</div>
+
+  <div class="note green"><b>الخلاصة:</b> مجموعة الواتساب نجحت مؤقتاً في إيصال المعلومة لكنها لا تملك أي أدوات إدارة حقيقية: لا تتبع، لا حجز، لا إحصاء، ولا إشعارات موجهة. التطبيق المقترح ينقل نفس سير العمل إلى نظام منظم دون تغيير طريقة تشغيل الرحلات.</div>
+
+  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 1</span></div>
+</div>
+
+<!-- ==================== صفحة 2 ==================== -->
+<div class="page tight">
+  <h2><span class="n">2.</span> الحل المقترح</h2>
+  <p class="lead">تطبيق جوال واحد بثلاث واجهات حسب الدور: <b>الطالب</b>، <b>والسائق</b>، <b>وإدارة النقل/المشرف</b>. الحافلة تُتبَّع عبر تطبيق بسيط على هاتف السائق – دون أي أجهزة إضافية.</p>
+
+  <div class="cols">
+    <div class="col">
+      <div class="feat">
+        <h3><span class="badge">ط</span> تطبيق الطالب</h3>
+        <ul class="dots">
+          <li><b>خريطة حية</b> لموقع الحافلة وخط سيرها على الخريطة</li>
+          <li><b>مواعيد كل محطة محسوبة لحظياً:</b> «حافلتك تصل محطتك بعد ~X دقيقة»</li>
+          <li><b>حجز ميعاد العودة</b> من اليوم السابق بضغطة واحدة</li>
+          <li><b>زرار «أنا جاهز»:</b> الطالب في المحطة يظهر كنقطة استلام على خريطة السائق</li>
+          <li><b>بطاقة ركوب QR</b> بدل الكارنية الورقي – تُمسح عند الباب</li>
+          <li><b>إشعارات موجهة:</b> «حافلتك ستتحرك خلال 5 دقائق» – لرحلتك فقط</li>
+          <li><b>بيانات الحافلة والسائق</b> + زرار تواصل داخل التطبيق (دون كشف الرقم)</li>
+          <li><b>تقييم الرحلة والسائق</b> بعد كل مشوار</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+      <div class="feat">
+        <h3><span class="badge">س</span> تطبيق السائق</h3>
+        <ul class="dots">
+          <li><b>واجهة بسيطة جداً: «ابدأ الرحلة» ثم «أنهي الرحلة»</b> – لا خطوات أخرى</li>
+          <li><b>بثّ الموقع تلقائياً</b> في الخلفية أثناء الرحلة فقط (حفاظاً على البطارية)</li>
+          <li><b>خريطة تعرض نقاط الاستلام:</b> عدد الطلاب المنتظرين في كل محطة على خطه</li>
+          <li><b>عداد ركاب حي</b> من مسح بطاقات QR</li>
+          <li><b>زراير حالة جاهزة:</b> «عند البوابة / بدأ التحميل / سأتحرك خلال 5 د»</li>
+        </ul>
+      </div>
+      <div class="feat">
+        <h3><span class="badge">إ</span> لوحة الإدارة</h3>
+        <ul class="dots">
+          <li><b>نشر رحلات اليوم بضغطتين</b> من قوالب جاهزة (خط + مواعيد)</li>
+          <li><b>لوحة طلب:</b> عدد الحجوزات لكل ميعاد – وإلغاء الميعاد الضعيف <b>مع إشعار تلقائي لمن حجزه واقتراح البديل</b></li>
+          <li><b>إعلانات عامة وسياسات مثبتة</b> (آخر ميعاد عودة، قواعد الركوب)</li>
+          <li><b>تقارير:</b> أعداد الركاب الفعلية، الالتزام بالمواعيد، الخطوط الأعلى طلباً</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note green"><b>مبدأ التصميم الأساسي:</b> كل ما كان المشرف يكتبه يدوياً في الواتساب يتحول إلى زرار أو بطاقة جاهزة – نشر الرحلة ضغطتين، تحديث الحالة ضغطة، وإشعار الطلاب تلقائي. لو أي إجراء استغرق أكثر من 30 ثانية فلن يُستخدم.</div>
+
+  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 2</span></div>
+</div>
+
+<!-- ==================== صفحة 3 ==================== -->
+<div class="page">
+  <h2><span class="n">3.</span> كيف يستبدل التطبيق سير العمل الحالي؟</h2>
+  <p class="lead">مقارنة مباشرة بين ما يحدث في مجموعة الواتساب اليوم وما يقدمه التطبيق.</p>
+
+  <table class="cmp">
+    <tr>
+      <th>الوضع الحالي في الواتساب</th>
+      <th>في التطبيق المقترح</th>
+    </tr>
+    <tr>
+      <td class="now">المشرف يكتب يدوياً: رقم الحافلة + خط السير + مواعيد كل محطة + رقم السائق</td>
+      <td class="new">قالب رحلة جاهز: المشرف يختار الخط والميعاد ويضغط «نشر» – ومواعيد المحطات تتولد تلقائياً</td>
+    </tr>
+    <tr>
+      <td class="now">رسائل متكررة: «عند البوابة / بدأ التحميل / «5 دقائق وتتحرك» / «تحركنا»</td>
+      <td class="new">زراير حالة جاهزة ترسل إشعاراً لطلاب الرحلة المعنية فقط – وتتحدث تلقائياً من موقع الحافلة</td>
+    </tr>
+    <tr>
+      <td class="now">استفتاء على مواعيد الغد، ونتيجته تضيع، وإلغاء الميعاد الضعيف بإعلان نصي</td>
+      <td class="new">حجز مسبق بضغطة + لوحة طلب للإدارة + إلغاء أي ميعاد يُشعر حاجزيه تلقائياً ويقترح البديل</td>
+    </tr>
+    <tr>
+      <td class="now">الطالب لا يعرف مكان الحافلة فيتصل بالسائق أو يستفسر في المجموعة</td>
+      <td class="new">موقع الحافلة مباشر على الخريطة + وصول متوقع لكل محطة محسوب لحظياً</td>
+    </tr>
+    <tr>
+      <td class="now">رقم هاتف السائق يُنشر علناً لكل الأعضاء</td>
+      <td class="new">زرار «تواصل مع السائق» داخل التطبيق – الرقم لا يظهر لأحد</td>
+    </tr>
+    <tr>
+      <td class="now">فحص الكارنية يدوياً عند البوابة – «مَن لم يستلم لن يركب»</td>
+      <td class="new">بطاقة QR شخصية تُمسح عند الركوب – أسرع وتعطي عداد ركاب حقيقياً</td>
+    </tr>
+    <tr>
+      <td class="now">«الحافلة تتحرك عندما تكتمل» – لا أحد يعرف كم بقي من المقاعد</td>
+      <td class="new">عداد ركاب حي لكل رحلة – الطالب يرى السعة قبل أن يتحرك من مكانه</td>
+    </tr>
+    <tr>
+      <td class="now">لا يوجد أي سجل: لا أعداد ركاب ولا التزام مواعيد ولا تقييم للسائقين</td>
+      <td class="new">تقارير تشغيلية جاهزة للإدارة: الطلب الفعلي، الالتزام بالمواعيد، تقييمات السائقين</td>
+    </tr>
+    <tr>
+      <td class="now">سياسات ومواعيد عودة تضيع وسط الرسائل</td>
+      <td class="new">صفحة سياسات وإعلانات مثبتة داخل التطبيق + إشعارات للمستجدات</td>
+    </tr>
+  </table>
+
+  <div class="note yellow"><b>ملاحظة خصوصية:</b> السائق يرى عدد المنتظرين ونقاط الاستلام في محطات خطه – لا يُعرض اسم الطالب ولا بياناته. بيانات الطالب الوحيدة الظاهرة هي بطاقة QR عند الركوب.</div>
+
+  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 3</span></div>
+</div>
+
+<!-- ==================== صفحة 4 ==================== -->
+<div class="page tight">
+  <h2><span class="n">4.</span> خطة التنفيذ المرحلية</h2>
+
+  <div class="stage">
+    <div class="num"><span class="d">1</span><span class="l">المرحلة الأولى</span></div>
+    <div class="body">
+      <h4>النواة الأساسية – تتبع وجداول وحالة الرحلة</h4>
+      <ul class="dots">
+        <li>تطبيق الطالب: خطوط السير، مواعيد الرحلات، موقع الحافلة مباشرة، إشعارات الحالة</li>
+        <li>تطبيق السائق: «ابدأ/إنهاء الرحلة» وبثّ الموقع + زراير الحالة الجاهزة</li>
+        <li>لوحة إدارة: إدارة الخطوط والمحطات والرحلات ونشر الإعلانات</li>
+        <li>زرار «أنا جاهز» لإظهار المنتظرين على خريطة السائق</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num"><span class="d">2</span><span class="l">المرحلة الثانية</span></div>
+    <div class="body">
+      <h4>إدارة الطلب والركوب</h4>
+      <ul class="dots">
+        <li>حجز ميعاد العودة مسبقاً + لوحة طلب للإدارة + إشعار تلقائي عند إلغاء ميعاد</li>
+        <li>بطاقة QR للركوب وعداد ركاب حي (بديل الكارنية الورقي)</li>
+        <li>بيانات الحافلة والسائق + التواصل الداخلي دون كشف الأرقام</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num"><span class="d">3</span><span class="l">المرحلة الثالثة</span></div>
+    <div class="body">
+      <h4>التحسين والذكاء</h4>
+      <ul class="dots">
+        <li>تقييم الرحلة والسائق + تقارير تشغيلية (الالتزام بالمواعيد، الخطوط الأعلى طلباً)</li>
+        <li>مساعد ذكي: الطالب يرفع جدوله الدراسي فيُقترح أنسب ميعاد لكل يوم</li>
+        <li>توصية بديلة تلقائية: «فاتك الميعاد؟ أقرب رحلة متاحة: …»</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><span class="n">5.</span> ما نحتاجه من الجامعة</h2>
+  <ul class="plain">
+    <li><b>اعتماد رسمي للتطبيق</b> كقناة النقل المعتمدة، والتوجيه للسائقين بتشغيله أثناء الرحلات (هاتف السائق هو جهاز التتبع – لا أجهزة إضافية).</li>
+    <li><b>بيانات التشغيل الأولية:</b> الخطوط والمحطات والمواعيد الحالية وأسماء الحافلات – تُدخل مرة واحدة ثم تدار من لوحة الإدارة.</li>
+    <li><b>قناة ربط بالسجل الطلابي</b> (اختياري لاحقاً) لإصدار بطاقات QR مؤقتة أو ربطها برقم الطالب.</li>
+    <li><b>إطلاق تجريبي</b> على خط أو خطين لمدة أسبوعين مع بقاء مجموعة الواتساب احتياطياً خلال الفترة الانتقالية.</li>
+  </ul>
+
+  <h2><span class="n">6.</span> الفوائد المتوقعة</h2>
+  <ul class="plain">
+    <li><b>للطالب:</b> معرفة مكان حافلته ووقت وصولها بدقة – بلا انتظار مبهم وبلا اتصالات.</li>
+    <li><b>للسائق:</b> رؤية الطلب الفعلي على خطه، وانتهاء اتصالات الطلاب الفردية.</li>
+    <li><b>للإدارة:</b> قرارات بالأرقام (إلغاء/إضافة مواعيد حسب الطلب الحقيقي)، التحقق الآلي من الهوية، وتقارير أداء للسائقين والخطوط.</li>
+    <li><b>للجامعة:</b> صورة مؤسسية أحدث، خدمة نقل أكثر أماناً وتنظيماً، وبيانات تشغيلية موثقة لأول مرة.</li>
+  </ul>
+
+  <div class="note green"><b>البداية المقترحة:</b> نسخة تجريبية على خط واحد لمدة أسبوعين – بلا تكلفة أجهزة وبلا تعطيل للنظام الحالي. إذا نجحت التجربة يُعمم التطبيق على بقية الخطوط تدريجياً.</div>
+
+  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب – أكتوبر 2026</span><span class="pg">صفحة 4</span></div>
+</div>
+
+</body>
+</html>
