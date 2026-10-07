@@ -46,7 +46,8 @@ body {
 }
 .page.tight { padding-top: 12mm; }
 .page.tight h2 { margin: 14px 0 10px; }
-.page.tight .stage { padding: 11px; margin-bottom: 9px; }
+.page.tight .stack { gap: 11px; margin-top: 10px; }
+.page.tight .feat { padding: 11px 15px; }
 .page.tight ul.plain li { margin-bottom: 6px; }
 .page.tight .note { margin-top: 10px; }
 
@@ -188,38 +189,6 @@ table.cmp {
 .cmp .now { color: var(--red); }
 .cmp .new { color: var(--green); }
 
-/* ===== كروت المراحل (صفحة 4) ===== */
-.stage {
-  display: flex;
-  gap: 16px;
-  background: var(--soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
-  align-items: stretch;
-}
-.stage .num {
-  background: linear-gradient(165deg, #0b3b6f, #12806a);
-  color: #fff;
-  border-radius: 9px;
-  min-width: 82px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 6px;
-}
-.stage .num .d { font-size: 17pt; font-weight: 700; }
-.stage .num .l { font-size: 8pt; margin-top: 4px; }
-.stage .body { flex: 1; }
-.stage .body h4 {
-  color: var(--blue);
-  font-size: 12pt;
-  margin-bottom: 5px;
-}
-.stage ul.dots li::before { color: var(--green); }
-.stage ul.dots li b { color: var(--green); }
 
 /* ===== قوائم عامة بلا كروت ===== */
 ul.plain { list-style: none; }
@@ -354,7 +323,7 @@ ul.plain li b { color: var(--blue); }
     </tr>
     <tr>
       <td class="now">رقم هاتف السائق يُنشر علناً لكل الأعضاء</td>
-      <td class="new">زرار «تواصل مع السائق» داخل التطبيق – الرقم لا يظهر لأحد</td>
+      <td class="new">زرار «تواصل مع السائق» داخل التطبيق</td>
     </tr>
     <tr>
       <td class="now">فحص الكارنية يدوياً عند البوابة – «مَن لم يستلم لن يركب»</td>
@@ -383,10 +352,9 @@ ul.plain li b { color: var(--blue); }
 <div class="page tight">
   <h2><span class="n">4.</span> خطة التنفيذ المرحلية</h2>
 
-  <div class="stage">
-    <div class="num"><span class="d">1</span><span class="l">المرحلة الأولى</span></div>
-    <div class="body">
-      <h4>النواة الأساسية – تتبع وجداول وحالة الرحلة</h4>
+  <div class="stack">
+    <div class="feat">
+      <h3><span class="badge">1</span> المرحلة الأولى <span class="hint">(النواة الأساسية – تتبع وجداول وحالة الرحلة)</span></h3>
       <ul class="dots">
         <li>تطبيق الطالب: خطوط السير، مواعيد الرحلات، موقع الحافلة مباشرة، إشعارات الحالة</li>
         <li>تطبيق السائق: «ابدأ/إنهاء الرحلة» وبثّ الموقع + زراير الحالة الجاهزة</li>
@@ -394,24 +362,16 @@ ul.plain li b { color: var(--blue); }
         <li>زرار «أنا جاهز» لإظهار المنتظرين على خريطة السائق</li>
       </ul>
     </div>
-  </div>
-
-  <div class="stage">
-    <div class="num"><span class="d">2</span><span class="l">المرحلة الثانية</span></div>
-    <div class="body">
-      <h4>إدارة الطلب والركوب</h4>
+    <div class="feat">
+      <h3><span class="badge">2</span> المرحلة الثانية <span class="hint">(إدارة الطلب والركوب)</span></h3>
       <ul class="dots">
         <li>حجز ميعاد العودة مسبقاً + لوحة طلب للإدارة + إشعار تلقائي عند إلغاء ميعاد</li>
         <li>بطاقة QR للركوب وعداد ركاب حي (بديل الكارنية الورقي)</li>
-        <li>بيانات الحافلة والسائق + التواصل الداخلي دون كشف الأرقام</li>
+        <li>بيانات الحافلة والسائق + التواصل الداخلي</li>
       </ul>
     </div>
-  </div>
-
-  <div class="stage">
-    <div class="num"><span class="d">3</span><span class="l">المرحلة الثالثة</span></div>
-    <div class="body">
-      <h4>التحسين والذكاء</h4>
+    <div class="feat">
+      <h3><span class="badge">3</span> المرحلة الثالثة <span class="hint">(التحسين والذكاء)</span></h3>
       <ul class="dots">
         <li>تقييم الرحلة والسائق + تقارير تشغيلية (الالتزام بالمواعيد، الخطوط الأعلى طلباً)</li>
         <li>مساعد ذكي: الطالب يرفع جدوله الدراسي فيُقترح أنسب ميعاد لكل يوم</li>
