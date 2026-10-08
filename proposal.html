@@ -268,8 +268,8 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 .roomy .prob h4 { font-size: 11.5pt; margin-bottom: 4px; }
 .roomy .prob p { font-size: 10pt; line-height: 1.75; }
 .roomy .callout { margin-top: 20px; padding: 16px 18px; font-size: 10.3pt; }
-.step .t { width: 106px; min-width: 106px; white-space: nowrap; }
-.step { margin-bottom: 10px; }
+.step { margin-bottom: 10px; display: grid; grid-template-columns: 112px 1fr; }
+.step .t { width: auto; justify-self: start; white-space: nowrap; }
 .stage { margin-bottom: 11px; padding: 13px; }
 .reqs { gap: 9px; }
 .req { padding: 10px 12px; }
