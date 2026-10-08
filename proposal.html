@@ -225,13 +225,6 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 .stage li svg.i { width: 13px; height: 13px; margin-top: 4px; color: var(--green); stroke-width: 2.6; }
 .stage li b { color: var(--green); }
 
-/* ===== قوائم المتطلبات ===== */
-.reqs { display: flex; flex-direction: column; gap: 7px; }
-.req { display: flex; gap: 10px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 9.7pt; line-height: 1.6; }
-.req .ic { width: 26px; height: 26px; border-radius: 8px; background: var(--sky); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.req .ic svg.i { width: 15px; height: 15px; }
-.req b { color: var(--blue); }
-
 /* ===== الجدوى ===== */
 .econ { display: flex; flex-direction: column; gap: 9px; }
 .ecard { border-radius: 12px; border: 1px solid var(--line); overflow: hidden; display: flex; }
@@ -271,7 +264,20 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 .step { margin-bottom: 10px; display: grid; grid-template-columns: 112px 1fr; }
 .step .t { width: auto; justify-self: start; white-space: nowrap; }
 .stage { margin-bottom: 11px; padding: 13px; }
-.reqs { gap: 9px; }
+.fill .stage { padding: 17px 15px; margin-bottom: 14px; }
+.fill .stage .body h4 { font-size: 12.5pt; margin-bottom: 6px; }
+.fill .stage li { font-size: 10.3pt; line-height: 1.8; }
+.fill .bens { gap: 14px; }
+.fill .ben { padding: 16px 14px; }
+.fill .ben .ic { width: 36px; height: 36px; }
+.fill .ben h4 { font-size: 11.5pt; margin-bottom: 4px; }
+.fill .ben p { font-size: 10pt; line-height: 1.75; }
+.fill .lead { font-size: 10.6pt; margin-bottom: 16px; }
+.fill .econ { gap: 16px; }
+.fill .ecard .side { width: 110px; font-size: 11pt; }
+.fill .ecard ul { padding: 16px 18px; }
+.fill .ecard li { font-size: 10.3pt; line-height: 1.85; padding: 4px 0; }
+.fill .callout.hero { margin-top: 22px; padding: 18px 20px; font-size: 10.6pt; }
 .req { padding: 10px 12px; }
 .bens { gap: 11px; }
 .ben { padding: 13px 14px; }
@@ -344,9 +350,9 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
         <li><span class="n">1</span> الوضع الحالي <span class="p">2</span></li>
         <li><span class="n">5</span> خطة التنفيذ المرحلية <span class="p">6</span></li>
         <li><span class="n">2</span> الحل والمميزات <span class="p">3</span></li>
-        <li><span class="n">6</span> الجدوى الاقتصادية <span class="p">7</span></li>
+        <li><span class="n">6</span> الفوائد المتوقعة <span class="p">6</span></li>
         <li><span class="n">3</span> سيناريو تشغيلي: يوم كامل مع النظام <span class="p">4</span></li>
-        <li><span class="n">7</span> الفوائد المتوقعة <span class="p">7</span></li>
+        <li><span class="n">7</span> الجدوى الاقتصادية <span class="p">7</span></li>
         <li><span class="n">4</span> كيف يستبدل التطبيق سير العمل الحالي؟ <span class="p">5</span></li>
       </ol>
     </div>
@@ -515,8 +521,8 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
   <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">5</span></div>
 </div>
 
-<!-- ==================== صفحة 6: الخطة + المتطلبات ==================== -->
-<div class="page">
+<!-- ==================== صفحة 6: الخطة + الفوائد ==================== -->
+<div class="page fill">
   <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
 
   <div class="sec"><span class="num">5</span><h2>خطة التنفيذ المرحلية</h2></div>
@@ -560,14 +566,22 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
     </div>
   </div>
 
+  <div class="sec mt"><span class="num">6</span><h2>الفوائد المتوقعة</h2></div>
+  <div class="bens">
+    <div class="ben s"><div class="ic"><svg class="i"><use href="#i-grad"/></svg></div><div><h4>للطالب</h4><p>معرفة مكان حافلته ووقت وصولها بدقة – بلا انتظار مبهم وبلا اتصالات.</p></div></div>
+    <div class="ben d"><div class="ic"><svg class="i"><use href="#i-steer"/></svg></div><div><h4>للسائق</h4><p>رؤية الطلب الفعلي على خطه، وانتهاء اتصالات الطلاب الفردية.</p></div></div>
+    <div class="ben a"><div class="ic"><svg class="i"><use href="#i-dash"/></svg></div><div><h4>للإدارة</h4><p>قرارات بالأرقام (إلغاء/إضافة مواعيد حسب الطلب الحقيقي)، التحقق الآلي من الاشتراك، وتقارير أداء للسائقين والخطوط.</p></div></div>
+    <div class="ben u"><div class="ic"><svg class="i"><use href="#i-uni"/></svg></div><div><h4>للجامعة</h4><p>تكلفة تشغيل أقل، دخل اشتراكات محمي، مصادر دخل جديدة، وخدمة نقل أكثر أماناً وتنظيماً.</p></div></div>
+  </div>
+
   <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">6</span></div>
 </div>
 
-<!-- ==================== صفحة 7: الجدوى + الفوائد ==================== -->
-<div class="page">
+<!-- ==================== صفحة 7: الجدوى + البداية المقترحة ==================== -->
+<div class="page fill">
   <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
 
-  <div class="sec"><span class="num">6</span><h2>الجدوى الاقتصادية</h2></div>
+  <div class="sec"><span class="num">7</span><h2>الجدوى الاقتصادية</h2></div>
   <p class="lead">التطبيق لا يضيف عبئاً على الميزانية – بل يوفّر في تكلفة التشغيل، ويحمي دخل الاشتراكات، ويفتح مصادر دخل جديدة من نفس الأسطول الحالي:</p>
 
   <div class="econ">
@@ -595,15 +609,7 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
     </div>
   </div>
 
-  <div class="sec mt"><span class="num">7</span><h2>الفوائد المتوقعة</h2></div>
-  <div class="bens">
-    <div class="ben s"><div class="ic"><svg class="i"><use href="#i-grad"/></svg></div><div><h4>للطالب</h4><p>معرفة مكان حافلته ووقت وصولها بدقة – بلا انتظار مبهم وبلا اتصالات.</p></div></div>
-    <div class="ben d"><div class="ic"><svg class="i"><use href="#i-steer"/></svg></div><div><h4>للسائق</h4><p>رؤية الطلب الفعلي على خطه، وانتهاء اتصالات الطلاب الفردية.</p></div></div>
-    <div class="ben a"><div class="ic"><svg class="i"><use href="#i-dash"/></svg></div><div><h4>للإدارة</h4><p>قرارات بالأرقام (إلغاء/إضافة مواعيد حسب الطلب الحقيقي)، التحقق الآلي من الاشتراك، وتقارير أداء للسائقين والخطوط.</p></div></div>
-    <div class="ben u"><div class="ic"><svg class="i"><use href="#i-uni"/></svg></div><div><h4>للجامعة</h4><p>تكلفة تشغيل أقل، دخل اشتراكات محمي، مصادر دخل جديدة، وخدمة نقل أكثر أماناً وتنظيماً.</p></div></div>
-  </div>
-
-  <div class="callout hero"><div class="ic"><svg class="i"><use href="#i-send"/></svg></div><div><b class="t">البداية المقترحة:</b> تجربة المرحلة الأولى على خط أو خطين لفترة قصيرة – بلا تكلفة أجهزة وبلا تعطيل للنظام الحالي. إذا نجحت التجربة يُعمم التطبيق على بقية الخطوط، وتُضاف المرحلتان الثانية والثالثة تدريجياً.</div></div>
+  <div class="callout hero mt"><div class="ic"><svg class="i"><use href="#i-send"/></svg></div><div><b class="t">البداية المقترحة:</b> تجربة المرحلة الأولى على خط أو خطين لفترة قصيرة – بلا تكلفة أجهزة وبلا تعطيل للنظام الحالي. إذا نجحت التجربة يُعمم التطبيق على بقية الخطوط، وتُضاف المرحلتان الثانية والثالثة تدريجياً.</div></div>
 
   <div class="pfoot"><span>مقترح مقدَّم من فريق إنجاز – engaz.tech – أكتوبر 2026</span><span class="pg">7</span></div>
 </div>
