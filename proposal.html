@@ -106,12 +106,10 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .cover-top .glow1, .cover-top .glow2 { position: absolute; border-radius: 50%; }
 .cover-top .glow1 { width: 120mm; height: 120mm; left: -40mm; top: -40mm; background: rgba(255,255,255,.06); }
 .cover-top .glow2 { width: 70mm; height: 70mm; right: -20mm; bottom: 30mm; background: rgba(255,255,255,.05); }
-.cover .team {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
-  border-radius: 30px; padding: 4px 14px; font-size: 9.5pt; font-weight: 500;
-}
-.cover .team .dot { width: 8px; height: 8px; border-radius: 50%; background: #5fe0bd; }
+.cover .team { display: flex; align-items: center; gap: 12px; }
+.cover .team .name { font-size: 15pt; font-weight: 700; letter-spacing: .2px; }
+.cover .team .sep { width: 1px; height: 18px; background: rgba(255,255,255,.45); }
+.cover .team .url { font-size: 10pt; opacity: .75; direction: ltr; letter-spacing: .6px; }
 .cover .kick { margin-top: 18mm; font-size: 11pt; opacity: .8; letter-spacing: .3px; }
 .cover h1 { font-size: 33pt; line-height: 1.35; font-weight: 700; margin-top: 4px; }
 .cover h1 span { color: #7ff0cf; }
@@ -326,7 +324,7 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 <div class="page cover">
   <div class="cover-top">
     <div class="glow1"></div><div class="glow2"></div>
-    <div class="team"><span class="dot"></span> فريق إنجاز – engaz.tech</div>
+    <div class="team"><span class="name">فريق إنجاز</span><span class="sep"></span><span class="url">engaz.tech</span></div>
     <div class="kick">مقترح مشروع مقدَّم لإدارة الجامعة</div>
     <h1>نظام إدارة وتتبع<br><span>حافلات نقل الطلاب</span></h1>
     <p class="desc">تطبيق جوال متكامل يحل محل مجموعة الواتساب الحالية، ويوفّر تتبعاً لحظياً للحافلات، وحجز المواعيد، وإشعارات ذكية، مع خفض تكلفة التشغيل وحماية دخل الاشتراكات – لتحسين تجربة النقل الجامعي وتقليل العشوائية في الركوب والمواعيد.</p>
