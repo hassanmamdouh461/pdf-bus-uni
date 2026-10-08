@@ -4,584 +4,635 @@
 <meta charset="UTF-8">
 <title>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</title>
 <style>
-@font-face {
-  font-family: 'Tajawal';
-  src: url('fonts/Tajawal-Regular.ttf') format('truetype');
-  font-weight: 400;
-}
-@font-face {
-  font-family: 'Tajawal';
-  src: url('fonts/Tajawal-Medium.ttf') format('truetype');
-  font-weight: 500;
-}
-@font-face {
-  font-family: 'Tajawal';
-  src: url('fonts/Tajawal-Bold.ttf') format('truetype');
-  font-weight: 700;
-}
+@font-face { font-family: 'Tajawal'; src: url('fonts/Tajawal-Regular.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Tajawal'; src: url('fonts/Tajawal-Medium.ttf') format('truetype'); font-weight: 500; }
+@font-face { font-family: 'Tajawal'; src: url('fonts/Tajawal-Bold.ttf') format('truetype'); font-weight: 700; }
+
 :root {
   --blue: #0b3b6f;
+  --blue-2: #1d5a99;
   --green: #12806a;
-  --red: #b03a2e;
+  --gold: #c8930c;
+  --red: #c0392b;
   --ink: #1e2f42;
-  --line: #d8e6f3;
-  --soft: #f2f7fc;
+  --muted: #5b6b7c;
+  --line: #dde7f1;
+  --soft: #f4f8fc;
+  --mint: #e9f6f1;
+  --sky: #eaf2fb;
+  --sand: #fbf5e6;
+  --rose: #fcefed;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 @page { size: A4; margin: 0; }
-body {
-  font-family: 'Tajawal', sans-serif;
-  color: var(--ink);
-  font-size: 10pt;
-  line-height: 1.65;
-}
-.page {
-  width: 210mm;
-  height: 297mm;
-  padding: 15mm 17mm 20mm;
-  position: relative;
-  page-break-after: always;
-  overflow: hidden;
-  background: #fff;
-}
-.page.tight { padding-top: 12mm; }
-.page.tight h2 { margin: 14px 0 10px; }
-.page.tight .stack { gap: 11px; margin-top: 10px; }
-.page.tight .feat { padding: 11px 15px; }
-.page.tight .stage { padding: 11px; margin-bottom: 9px; }
-.page.tight ul.plain li { margin-bottom: 6px; }
-.page.tight .note { margin-top: 10px; }
+html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font-family: 'Tajawal', sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.7; background: #fff; }
+b { font-weight: 700; }
+svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-/* ===== الغلاف ===== */
-.cover {
-  background: linear-gradient(150deg, #0b3b6f 20%, #0e5a66 60%, #12806a 100%);
-  border-radius: 14px;
-  padding: 30px 32px 34px;
-  color: #fff;
-  margin-bottom: 24px;
+/* ===== الصفحة ===== */
+.page {
+  width: 210mm; height: 297mm;
+  padding: 22mm 16mm 18mm;
+  position: relative; overflow: hidden;
+  page-break-after: always; background: #fff;
 }
-.cover .kicker {
-  font-size: 10pt;
-  opacity: .82;
-  margin-bottom: 8px;
+.page::before {
+  content: ''; position: absolute; top: 0; right: 0; left: 0; height: 5px;
+  background: linear-gradient(90deg, var(--green), var(--blue));
 }
-.cover h1 {
-  font-size: 23pt;
-  font-weight: 700;
-  margin-bottom: 10px;
+.phead {
+  position: absolute; top: 9mm; right: 16mm; left: 16mm;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 8.5pt; color: var(--muted);
 }
-.cover p {
-  font-size: 10.5pt;
-  opacity: .92;
-  line-height: 1.8;
+.phead .brand { color: var(--blue); font-weight: 700; display: flex; align-items: center; gap: 6px; }
+.phead .brand .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+.pfoot {
+  position: absolute; bottom: 9mm; right: 16mm; left: 16mm;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 8.5pt; color: var(--muted);
+  border-top: 1px solid var(--line); padding-top: 6px;
+}
+.pfoot .pg {
+  background: var(--blue); color: #fff; font-weight: 700;
+  border-radius: 20px; padding: 1px 12px; font-size: 8.5pt;
 }
 
 /* ===== عناوين الأقسام ===== */
-h2 {
-  font-size: 15.5pt;
-  color: var(--blue);
-  border-right: 5px solid var(--green);
-  padding-right: 12px;
-  margin: 20px 0 14px;
+.sec { display: flex; align-items: center; gap: 12px; margin: 4px 0 10px; }
+.sec .num {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: linear-gradient(145deg, var(--blue), var(--green));
+  color: #fff; font-weight: 700; font-size: 14pt;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-h2 .n { color: var(--green); }
-h3.sub {
-  font-size: 11.5pt;
-  color: var(--blue);
-  text-align: center;
-  margin: 14px 0 10px;
+.sec h2 { font-size: 17pt; color: var(--blue); font-weight: 700; white-space: nowrap; }
+.sec::after { content: ''; flex: 1; height: 2px; background: linear-gradient(270deg, var(--line), transparent); }
+.sec.mt { margin-top: 18px; }
+.lead { color: #34475b; margin-bottom: 12px; font-size: 10pt; }
+.sub { font-size: 11.5pt; color: var(--blue); font-weight: 700; margin: 6px 0 10px; display: flex; align-items: center; gap: 8px; }
+.sub::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: var(--green); }
+
+/* ===== ملاحظات ===== */
+.callout {
+  display: flex; gap: 12px; align-items: flex-start;
+  border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 9.9pt;
 }
-p.lead { margin-bottom: 6px; }
+.callout .ic {
+  width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #fff;
+}
+.callout.green { background: var(--mint); }
+.callout.green .ic { background: var(--green); }
+.callout.green b.t { color: var(--green); }
+.callout.yellow { background: var(--sand); }
+.callout.yellow .ic { background: var(--gold); }
+.callout.yellow b.t { color: #8a6500; }
+.callout.hero {
+  background: linear-gradient(135deg, var(--blue), var(--green)); color: #fff;
+}
+.callout.hero .ic { background: rgba(255,255,255,.18); }
+.callout.hero b.t { color: #fff; }
+
+/* ===== الغلاف ===== */
+.cover { padding: 0; }
+.cover::before { display: none; }
+.cover-top {
+  height: 178mm; position: relative; overflow: hidden;
+  background: linear-gradient(150deg, #0a3360 0%, #0b3b6f 35%, #0f6470 70%, #12806a 100%);
+  color: #fff; padding: 20mm 18mm 0;
+}
+.cover-top .glow1, .cover-top .glow2 { position: absolute; border-radius: 50%; }
+.cover-top .glow1 { width: 120mm; height: 120mm; left: -40mm; top: -40mm; background: rgba(255,255,255,.06); }
+.cover-top .glow2 { width: 70mm; height: 70mm; right: -20mm; bottom: 30mm; background: rgba(255,255,255,.05); }
+.cover .team {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25);
+  border-radius: 30px; padding: 4px 14px; font-size: 9.5pt; font-weight: 500;
+}
+.cover .team .dot { width: 8px; height: 8px; border-radius: 50%; background: #5fe0bd; }
+.cover .kick { margin-top: 18mm; font-size: 11pt; opacity: .8; letter-spacing: .3px; }
+.cover h1 { font-size: 33pt; line-height: 1.35; font-weight: 700; margin-top: 4px; }
+.cover h1 span { color: #7ff0cf; }
+.cover .desc { margin-top: 12px; font-size: 11pt; line-height: 1.85; opacity: .92; max-width: 150mm; }
+.cover .route { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62mm; }
+.cover-bottom { padding: 12mm 18mm 0; }
+.meta { display: flex; gap: 10px; }
+.meta .m {
+  flex: 1; background: var(--soft); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; display: flex; gap: 10px; align-items: center;
+}
+.meta .m .ic { width: 32px; height: 32px; border-radius: 9px; background: var(--sky); color: var(--blue); display: flex; align-items: center; justify-content: center; }
+.meta .m small { display: block; color: var(--muted); font-size: 8.5pt; line-height: 1.3; }
+.meta .m div b { color: var(--blue); font-size: 10pt; line-height: 1.4; }
+.toc { margin-top: 10mm; }
+.toc h3 { font-size: 12pt; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.toc h3::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: var(--green); }
+.toc ol { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+.toc li {
+  display: flex; align-items: center; gap: 10px; padding: 7px 0;
+  border-bottom: 1px dashed var(--line); font-size: 10pt;
+}
+.toc li .n { width: 22px; height: 22px; border-radius: 6px; background: var(--sky); color: var(--blue); font-weight: 700; font-size: 9pt; display: flex; align-items: center; justify-content: center; }
+.toc li .p { margin-right: auto; color: var(--muted); font-size: 9pt; }
 
 /* ===== كروت المشاكل ===== */
+.probs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .prob {
-  background: #fff;
-  border: 1px solid var(--line);
-  border-right: 4px solid var(--red);
-  border-radius: 8px;
-  padding: 9px 14px;
-  margin-bottom: 10px;
-  font-size: 10pt;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; display: flex; gap: 11px; align-items: flex-start;
 }
-.prob b { color: var(--red); }
+.prob .ic { width: 34px; height: 34px; border-radius: 10px; background: var(--rose); color: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.prob h4 { color: var(--red); font-size: 10.5pt; margin-bottom: 2px; }
+.prob p { font-size: 9.5pt; color: #3b4d60; line-height: 1.65; }
 
-/* ===== صناديق الملاحظات ===== */
-.note {
-  border-radius: 8px;
-  padding: 11px 15px;
-  font-size: 10pt;
-  margin-top: 14px;
-}
-.note.green { background: #eaf7f1; border-right: 4px solid var(--green); }
-.note.green b { color: var(--green); }
-.note.yellow { background: #fdf8e4; border-right: 4px solid #d4a017; }
-.note.yellow b { color: #8a6d00; }
+/* ===== كروت الأدوار ===== */
+.roles { display: flex; flex-direction: column; gap: 10px; }
+.role { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.role .hd { display: flex; align-items: center; gap: 10px; padding: 7px 14px; }
+.role .hd .ic { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; }
+.role .hd h3 { font-size: 12.5pt; }
+.role .hd .hint { font-size: 9pt; font-weight: 400; color: var(--muted); }
+.role.student .hd { background: var(--sky); }
+.role.student .hd .ic { background: var(--blue); }
+.role.student .hd h3 { color: var(--blue); }
+.role.driver .hd { background: var(--mint); }
+.role.driver .hd .ic { background: var(--green); }
+.role.driver .hd h3 { color: var(--green); }
+.role.admin .hd { background: var(--sand); }
+.role.admin .hd .ic { background: var(--gold); }
+.role.admin .hd h3 { color: #8a6500; }
+.role ul { list-style: none; padding: 7px 14px 8px; }
+.role li { display: flex; gap: 8px; align-items: flex-start; font-size: 9.6pt; line-height: 1.6; padding: 2px 0; }
+.role li svg.i { width: 14px; height: 14px; margin-top: 3px; stroke-width: 2.6; }
+.role.student li svg.i, .role.student li b { color: var(--blue); }
+.role.driver li svg.i, .role.driver li b { color: var(--green); }
+.role.admin li svg.i { color: var(--gold); }
+.role.admin li b { color: #8a6500; }
 
-/* ===== كروت المميزات (صفحة 2) ===== */
-.stack { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
-.feat {
-  background: var(--soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 14px 17px;
-  flex: 1;
-}
-.feat h3 {
-  color: var(--blue);
-  font-size: 13pt;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.feat h3 .hint {
-  font-size: 9pt;
-  font-weight: 400;
-  color: #4a6a8a;
-}
-.feat h3 .badge {
-  background: var(--blue);
-  color: #fff;
-  width: 25px;
-  height: 25px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11pt;
-}
-ul.dots { list-style: none; }
-ul.dots li {
-  padding-right: 14px;
-  position: relative;
-  margin-bottom: 5px;
-  font-size: 9.8pt;
-}
-ul.dots li::before {
-  content: '•';
-  color: var(--blue);
-  position: absolute;
-  right: 0;
-  font-weight: 700;
-}
-ul.dots li b { color: var(--blue); }
-
-/* ===== جدول المقارنة (صفحة 3) ===== */
-table.cmp {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 9.8pt;
-  margin-top: 10px;
-}
-.cmp th {
-  background: var(--blue);
-  color: #fff;
-  padding: 9px 12px;
-  font-size: 10.5pt;
-  border: 1px solid var(--blue);
-}
-.cmp td {
-  border: 1px solid var(--line);
-  padding: 9px 12px;
-  vertical-align: top;
-  width: 50%;
-}
-.cmp tr:nth-child(even) td { background: #f4f8fc; }
-.cmp .now { color: var(--red); }
-.cmp .new { color: var(--green); }
-
-
-/* ===== كروت المراحل (صفحة 4) ===== */
-.stage {
-  display: flex;
-  gap: 16px;
-  background: var(--soft);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 14px;
-  margin-bottom: 12px;
-  align-items: stretch;
-}
-.stage .num {
-  background: linear-gradient(165deg, #0b3b6f, #12806a);
-  color: #fff;
-  border-radius: 9px;
-  min-width: 82px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 6px;
-}
-.stage .num .d { font-size: 17pt; font-weight: 700; }
-.stage .num .l { font-size: 8pt; margin-top: 4px; }
-.stage .body { flex: 1; }
-.stage .body h4 .hint { font-size: 9pt; font-weight: 400; color: #4a6a8a; }
-.stage .body h4 {
-  color: var(--blue);
-  font-size: 12pt;
-  margin-bottom: 5px;
-}
-.stage ul.dots li::before { color: var(--green); }
-.stage ul.dots li b { color: var(--green); }
-
-/* ===== السيناريو (خط زمني) ===== */
-.tl {
-  position: relative;
-  margin-top: 14px;
-  padding-right: 22px;
-}
-.tl::before {
-  content: '';
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: var(--line);
-}
-.step {
-  position: relative;
-  display: flex;
-  gap: 12px;
-  background: var(--soft);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-bottom: 9px;
-  font-size: 9.8pt;
-}
+/* ===== السيناريو ===== */
+.legend { display: flex; gap: 16px; font-size: 9pt; color: var(--muted); margin-bottom: 10px; }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.tl { position: relative; padding-right: 26px; }
+.tl::before { content: ''; position: absolute; right: 8px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
+.step { position: relative; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
 .step::before {
-  content: '';
-  position: absolute;
-  right: -21px;
-  top: 13px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+  content: ''; position: absolute; right: -24px; top: 9px;
+  width: 12px; height: 12px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line);
+}
+.step .t {
+  min-width: 96px; text-align: center; font-weight: 700; font-size: 9pt;
+  border-radius: 20px; padding: 3px 8px; margin-top: 4px;
+}
+.step .d {
+  flex: 1; background: var(--soft); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; font-size: 9.7pt; line-height: 1.65;
 }
 .step.student::before { background: var(--blue); }
+.step.student .t { background: var(--sky); color: var(--blue); }
 .step.driver::before { background: var(--green); }
-.step.admin::before { background: #d4a017; }
-.step .t {
-  min-width: 92px;
-  font-weight: 700;
-  color: var(--blue);
-}
-.step .d { flex: 1; }
-.step .who { font-weight: 700; color: var(--green); }
+.step.driver .t { background: var(--mint); color: var(--green); }
+.step.admin::before { background: var(--gold); }
+.step.admin .t { background: var(--sand); color: #8a6500; }
+.who { font-weight: 700; }
+.step.student .who { color: var(--blue); }
+.step.driver .who { color: var(--green); }
+.step.admin .who { color: #8a6500; }
 
-h3.grp {
-  font-size: 11pt;
-  color: var(--green);
-  margin: 10px 0 5px;
-}
+/* ===== جدول المقارنة ===== */
+table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 9.6pt; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.cmp th { padding: 10px 14px; font-size: 10.5pt; color: #fff; text-align: right; }
+.cmp th.now { background: #8e3b33; }
+.cmp th.new { background: linear-gradient(90deg, var(--green), var(--blue)); }
+.cmp th span { display: flex; align-items: center; gap: 8px; }
+.cmp td { padding: 9px 14px; vertical-align: top; width: 50%; border-top: 1px solid var(--line); line-height: 1.65; }
+.cmp td.now { background: #fffafa; color: #5a3a37; border-left: 1px solid var(--line); }
+.cmp td.new { background: #f8fcfb; color: #1f4a40; }
+.cmp td .row { display: flex; gap: 8px; align-items: flex-start; }
+.cmp td svg.i { width: 15px; height: 15px; margin-top: 3px; stroke-width: 2.6; }
+.cmp td.now svg.i, .cmp td.now b { color: var(--red); }
+.cmp td.new svg.i, .cmp td.new b { color: var(--green); }
 
-/* ===== قوائم عامة بلا كروت ===== */
-ul.plain { list-style: none; }
-ul.plain li {
-  padding-right: 16px;
-  position: relative;
-  margin-bottom: 8px;
-  font-size: 10pt;
+/* ===== المراحل ===== */
+.stages { position: relative; }
+.stage {
+  display: flex; gap: 14px; background: var(--soft); border: 1px solid var(--line);
+  border-radius: 12px; padding: 11px; margin-bottom: 9px; align-items: stretch;
 }
-ul.plain li::before {
-  content: '•';
-  color: var(--green);
-  position: absolute;
-  right: 0;
-  font-weight: 700;
+.stage .num {
+  background: linear-gradient(165deg, var(--blue), var(--green)); color: #fff;
+  border-radius: 10px; min-width: 80px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; padding: 8px 6px;
 }
-ul.plain li b { color: var(--blue); }
+.stage .num .d { font-size: 20pt; font-weight: 700; line-height: 1.1; }
+.stage .num .l { font-size: 8pt; margin-top: 2px; opacity: .9; }
+.stage .body { flex: 1; }
+.stage .body h4 { color: var(--blue); font-size: 11.5pt; margin-bottom: 3px; }
+.stage .body h4 .hint { font-size: 8.8pt; font-weight: 500; color: #fff; background: var(--green); border-radius: 20px; padding: 1px 9px; margin-right: 6px; }
+.stage ul { list-style: none; }
+.stage li { display: flex; gap: 8px; align-items: flex-start; font-size: 9.6pt; line-height: 1.6; padding: 1px 0; }
+.stage li svg.i { width: 13px; height: 13px; margin-top: 4px; color: var(--green); stroke-width: 2.6; }
+.stage li b { color: var(--green); }
 
-/* ===== الفوتر ===== */
-.foot {
-  position: absolute;
-  bottom: 11mm;
-  right: 17mm;
-  left: 17mm;
-  border-top: 1px solid var(--line);
-  padding-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 8.5pt;
-  color: var(--blue);
-}
-.foot .pg { font-weight: 700; }
+/* ===== قوائم المتطلبات ===== */
+.reqs { display: flex; flex-direction: column; gap: 7px; }
+.req { display: flex; gap: 10px; align-items: flex-start; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 9.7pt; line-height: 1.6; }
+.req .ic { width: 26px; height: 26px; border-radius: 8px; background: var(--sky); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.req .ic svg.i { width: 15px; height: 15px; }
+.req b { color: var(--blue); }
+
+/* ===== الجدوى ===== */
+.econ { display: flex; flex-direction: column; gap: 9px; }
+.ecard { border-radius: 12px; border: 1px solid var(--line); overflow: hidden; display: flex; }
+.ecard .side { width: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #fff; font-weight: 700; font-size: 10pt; text-align: center; padding: 8px; line-height: 1.35; }
+.ecard .side .ic { width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; }
+.ecard.save .side { background: var(--green); }
+.ecard.protect .side { background: var(--blue); }
+.ecard.income .side { background: var(--gold); }
+.ecard ul { list-style: none; flex: 1; padding: 8px 14px; }
+.ecard li { font-size: 9.6pt; line-height: 1.6; padding: 2px 0; display: flex; gap: 8px; align-items: flex-start; }
+.ecard li svg.i { width: 13px; height: 13px; margin-top: 4px; stroke-width: 2.6; }
+.ecard.save li svg.i, .ecard.save li b { color: var(--green); }
+.ecard.protect li svg.i, .ecard.protect li b { color: var(--blue); }
+.ecard.income li svg.i { color: var(--gold); }
+.ecard.income li b { color: #8a6500; }
+
+/* ===== الفوائد ===== */
+.bens { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.ben { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; background: var(--soft); }
+.ben .ic { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; }
+.ben h4 { font-size: 10.5pt; margin-bottom: 1px; }
+.ben p { font-size: 9.3pt; line-height: 1.6; color: #3b4d60; }
+.ben.s .ic { background: var(--blue); } .ben.s h4 { color: var(--blue); }
+.ben.d .ic { background: var(--green); } .ben.d h4 { color: var(--green); }
+.ben.a .ic { background: var(--gold); } .ben.a h4 { color: #8a6500; }
+.ben.u .ic { background: var(--blue-2); } .ben.u h4 { color: var(--blue-2); }
+
+/* ===== ضبط المساحات لكل صفحة ===== */
+.roomy .lead { font-size: 10.6pt; margin-bottom: 16px; }
+.roomy .sub { margin: 10px 0 14px; font-size: 12.5pt; }
+.roomy .probs { gap: 14px; }
+.roomy .prob { padding: 18px 16px; }
+.roomy .prob .ic { width: 40px; height: 40px; }
+.roomy .prob h4 { font-size: 11.5pt; margin-bottom: 4px; }
+.roomy .prob p { font-size: 10pt; line-height: 1.75; }
+.roomy .callout { margin-top: 20px; padding: 16px 18px; font-size: 10.3pt; }
+.step .t { width: 106px; min-width: 106px; white-space: nowrap; }
+.step { margin-bottom: 10px; }
+.stage { margin-bottom: 11px; padding: 13px; }
+.reqs { gap: 9px; }
+.req { padding: 10px 12px; }
+.bens { gap: 11px; }
+.ben { padding: 13px 14px; }
+.econ { gap: 11px; }
 </style>
 </head>
 <body>
 
-<!-- ==================== صفحة 1 ==================== -->
-<div class="page">
-  <div class="cover">
-    <div class="kicker">مقترح مقدَّم من فريق إنجاز – engaz.tech</div>
-    <h1>نظام إدارة وتتبع حافلات نقل الطلاب</h1>
-    <p>تطبيق جوال متكامل يحل محل مجموعة الواتساب الحالية، ويوفّر تتبعاً لحظياً للحافلات، وحجز المواعيد، وإشعارات ذكية، مع خفض تكلفة التشغيل وحماية دخل الاشتراكات – لتحسين تجربة النقل الجامعي وتقليل العشوائية في الركوب والمواعيد.</p>
+<!-- ===== أيقونات ===== -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-bus" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16M8 17v3M16 17v3"/><circle cx="8" cy="13.5" r=".8"/><circle cx="16" cy="13.5" r=".8"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.6 2.6 3 5.2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.3-8 9-4.6-.7-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v.01M14 21h3M20 18v3"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20h18M6 20v-6M11 20V8M16 20v-9M21 20V4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></symbol>
+  <symbol id="i-steer" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 14.5V21M9.6 11.3L3.4 9.6M14.4 11.3l6.2-1.7"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="10" rx="1.5"/><rect x="13" y="3" width="8" height="6" rx="1.5"/><rect x="13" y="11" width="8" height="10" rx="1.5"/><rect x="3" y="15" width="8" height="6" rx="1.5"/></symbol>
+  <symbol id="i-uni" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10M19 21V10M9 21v-6h6v6M2 10l10-6 10 6z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.6-1.5 1.7-2.2 3-2.2s2.4.7 3 2.2M14 10h4M14 14h4"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M9 13h8M9 17h6"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L3 10.5l7 2.5 2.5 7z"/><path d="M10 13l4-4"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.9-3.6 3.7-5.5 7-5.5s6.1 1.9 7 5.5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v13c0 1.7 3.6 3 8 3s8-1.3 8-3v-13M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+</svg>
+
+<!-- ==================== صفحة 1: الغلاف ==================== -->
+<div class="page cover">
+  <div class="cover-top">
+    <div class="glow1"></div><div class="glow2"></div>
+    <div class="team"><span class="dot"></span> فريق إنجاز – engaz.tech</div>
+    <div class="kick">مقترح مشروع مقدَّم لإدارة الجامعة</div>
+    <h1>نظام إدارة وتتبع<br><span>حافلات نقل الطلاب</span></h1>
+    <p class="desc">تطبيق جوال متكامل يحل محل مجموعة الواتساب الحالية، ويوفّر تتبعاً لحظياً للحافلات، وحجز المواعيد، وإشعارات ذكية، مع خفض تكلفة التشغيل وحماية دخل الاشتراكات – لتحسين تجربة النقل الجامعي وتقليل العشوائية في الركوب والمواعيد.</p>
+
+    <svg class="route" viewBox="0 0 800 240" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-10 200 C 120 90, 230 230, 360 140 S 600 40, 810 120" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="16" stroke-linecap="round"/>
+      <path d="M-10 200 C 120 90, 230 230, 360 140 S 600 40, 810 120" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2.5" stroke-dasharray="10 9" stroke-linecap="round"/>
+      <g fill="#fff">
+        <circle cx="105" cy="140" r="8"/><circle cx="105" cy="140" r="15" fill="rgba(255,255,255,.18)"/>
+        <circle cx="360" cy="140" r="8"/><circle cx="360" cy="140" r="15" fill="rgba(255,255,255,.18)"/>
+        <circle cx="690" cy="82" r="8"/><circle cx="690" cy="82" r="15" fill="rgba(255,255,255,.18)"/>
+      </g>
+      <g transform="translate(505 62)">
+        <circle r="26" fill="#7ff0cf"/>
+        <g transform="translate(-12 -12)" fill="none" stroke="#0b3b6f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 10h16M8 17v3M16 17v3"/>
+        </g>
+      </g>
+    </svg>
   </div>
 
-  <h2><span class="n">1.</span> الوضع الحالي</h2>
+  <div class="cover-bottom">
+    <div class="meta">
+      <div class="m"><div class="ic"><svg class="i"><use href="#i-team"/></svg></div><div><small>مقدَّم من</small><b>فريق إنجاز</b></div></div>
+      <div class="m"><div class="ic"><svg class="i"><use href="#i-uni"/></svg></div><div><small>مقدَّم إلى</small><b>إدارة الجامعة – النقل</b></div></div>
+      <div class="m"><div class="ic"><svg class="i"><use href="#i-cal"/></svg></div><div><small>التاريخ</small><b>أكتوبر 2026</b></div></div>
+    </div>
+
+    <div class="toc">
+      <h3>محتويات المقترح</h3>
+      <ol>
+        <li><span class="n">1</span> الوضع الحالي <span class="p">2</span></li>
+        <li><span class="n">5</span> خطة التنفيذ المرحلية <span class="p">6</span></li>
+        <li><span class="n">2</span> الحل والمميزات <span class="p">3</span></li>
+        <li><span class="n">6</span> ما نحتاجه من الجامعة <span class="p">6</span></li>
+        <li><span class="n">3</span> يوم واحد مع النظام <span class="p">4</span></li>
+        <li><span class="n">7</span> الجدوى الاقتصادية <span class="p">7</span></li>
+        <li><span class="n">4</span> كيف يستبدل التطبيق سير العمل الحالي؟ <span class="p">5</span></li>
+        <li><span class="n">8</span> الفوائد المتوقعة <span class="p">7</span></li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== صفحة 2: الوضع الحالي ==================== -->
+<div class="page roomy">
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
+
+  <div class="sec"><span class="num">1</span><h2>الوضع الحالي</h2></div>
   <p class="lead">يعتمد تنظيم رحلات الحافلات حالياً على مجموعة واتساب يقوم فيها المشرفون بنشر كل شيء يدوياً كنصوص: أرقام الحافلات وخطوط السير ومواعيد المحطات وأرقام هواتف السائقين، بالإضافة إلى تحديثات حالة («الحافلة عند البوابة – ستتحرك خلال 5 دقائق») واستفتاءات لقياس الطلب على مواعيد اليوم التالي.</p>
 
-  <h3 class="sub">المشاكل التي تظهرها الممارسة الحالية</h3>
+  <div class="sub">المشاكل التي تظهرها الممارسة الحالية</div>
 
-  <div class="prob"><b>معلومات مدفونة في الرسائل:</b> مواعيد الرحلات تُكتب كنص يدوي وتضيع بين مئات الرسائل؛ الطالب يضطر للبحث أو السؤال المتكرر.</div>
-  <div class="prob"><b>لا يوجد تتبع فعلي للحافلة:</b> الطالب لا يعرف أين الحافلة الآن، فيتصل بالسائق مباشرة وبكثرة، أو ينتظر في المحطة دون معلومة موثوقة.</div>
-  <div class="prob"><b>قياس الطلب بدائي:</b> استفتاءات الواتساب على مواعيد الغد تضيع نتائجها، وإلغاء المواعيد يتم بإعلان نصي قد لا يصل لصاحب الشأن.</div>
-  <div class="prob"><b>التحقق من الاشتراك يدوي:</b> قاعدة «مَن لم يستلم لن يركب» تُنفذ بالعين عند البوابة – تستهلك وقتاً ولا تضمن أن الراكب مشترك فعلاً.</div>
-  <div class="prob"><b>أرقام السائقين منشورة للجميع:</b> كشف بيانات شخصية واتصالات عشوائية على رحلات لا تعنيهم.</div>
-  <div class="prob"><b>لا بيانات تشغيلية:</b> لا يوجد سجل دقيق لأعداد الركاب، أو الالتزام بالمواعيد، أو الخطوط الأعلى طلباً – فتتحرك رحلات بنصف حمولة ولا سبيل لتحسين الخدمة بالأرقام.</div>
+  <div class="probs">
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-search"/></svg></div><div><h4>معلومات مدفونة في الرسائل</h4><p>مواعيد الرحلات تُكتب كنص يدوي وتضيع بين مئات الرسائل؛ الطالب يضطر للبحث أو السؤال المتكرر.</p></div></div>
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-pin"/></svg></div><div><h4>لا يوجد تتبع فعلي للحافلة</h4><p>الطالب لا يعرف أين الحافلة الآن، فيتصل بالسائق مباشرة وبكثرة، أو ينتظر في المحطة دون معلومة موثوقة.</p></div></div>
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-chart"/></svg></div><div><h4>قياس الطلب بدائي</h4><p>استفتاءات الواتساب على مواعيد الغد تضيع نتائجها، وإلغاء المواعيد يتم بإعلان نصي قد لا يصل لصاحب الشأن.</p></div></div>
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-id"/></svg></div><div><h4>التحقق من الاشتراك يدوي</h4><p>قاعدة «مَن لم يستلم لن يركب» تُنفذ بالعين عند البوابة – تستهلك وقتاً ولا تضمن أن الراكب مشترك فعلاً.</p></div></div>
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-phone"/></svg></div><div><h4>أرقام السائقين منشورة للجميع</h4><p>كشف بيانات شخصية واتصالات عشوائية على رحلات لا تعنيهم.</p></div></div>
+    <div class="prob"><div class="ic"><svg class="i"><use href="#i-db"/></svg></div><div><h4>لا بيانات تشغيلية</h4><p>لا يوجد سجل دقيق لأعداد الركاب، أو الالتزام بالمواعيد، أو الخطوط الأعلى طلباً – فتتحرك رحلات بنصف حمولة ولا سبيل لتحسين الخدمة بالأرقام.</p></div></div>
+  </div>
 
-  <div class="note green"><b>الخلاصة:</b> مجموعة الواتساب نجحت مؤقتاً في إيصال المعلومة لكنها لا تملك أي أدوات إدارة حقيقية: لا تتبع، لا حجز، لا إحصاء، ولا إشعارات موجهة. التطبيق المقترح ينقل نفس سير العمل إلى نظام منظم دون أي أجهزة أو حافلات إضافية.</div>
+  <div class="callout green"><div class="ic"><svg class="i"><use href="#i-bulb"/></svg></div><div><b class="t">الخلاصة:</b> مجموعة الواتساب نجحت مؤقتاً في إيصال المعلومة لكنها لا تملك أي أدوات إدارة حقيقية: لا تتبع، لا حجز، لا إحصاء، ولا إشعارات موجهة. التطبيق المقترح ينقل نفس سير العمل إلى نظام منظم دون أي أجهزة أو حافلات إضافية.</div></div>
 
-  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 1</span></div>
+  <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">2</span></div>
 </div>
 
-<!-- ==================== صفحة 2 ==================== -->
-<div class="page tight">
-  <h2><span class="n">2.</span> الحل والمميزات</h2>
+<!-- ==================== صفحة 3: الحل والمميزات ==================== -->
+<div class="page">
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
+
+  <div class="sec"><span class="num">2</span><h2>الحل والمميزات</h2></div>
   <p class="lead">تطبيق جوال واحد بثلاث واجهات حسب الدور: <b>الطالب</b>، <b>والسائق</b>، <b>وإدارة النقل/المشرف</b>. الحافلة تُتبَّع عبر تطبيق بسيط على هاتف السائق – دون أي أجهزة إضافية. التطبيق خفيف يعمل على الهواتف القديمة ومع الإنترنت الضعيف، ويبدأ بنظام أندرويد.</p>
 
-  <div class="stack">
-    <div class="feat">
-      <h3><span class="badge">ط</span> تطبيق الطالب <span class="hint">(تجربة أقرب لتطبيقات النقل الذكي مثل أوبر وكريم)</span></h3>
-      <ul class="dots">
-        <li><b>خريطة حية</b> لموقع الحافلة وخط سيرها – مع تنبيه «آخر تحديث منذ X دقيقة» إذا انقطع البث</li>
-        <li><b>مواعيد كل محطة محسوبة لحظياً:</b> «حافلتك تصل محطتك بعد ~X دقيقة»</li>
-        <li><b>حجز موعد العودة</b> من اليوم السابق بضغطة واحدة + قائمة انتظار عند اكتمال المقاعد</li>
-        <li><b>زر «أنا جاهز»:</b> الطالب في المحطة يظهر كنقطة استلام على خريطة السائق</li>
-        <li><b>بطاقة ركوب QR</b> مربوطة بالاشتراك بدل الكارنيه الورقي – تُمسح عند الباب</li>
-        <li><b>دفع الاشتراك أو تذكرة الرحلة</b> من التطبيق عبر بوابة دفع إلكتروني</li>
-        <li><b>إشعارات موجهة:</b> «حافلتك ستتحرك خلال 5 دقائق» – لرحلتك فقط</li>
-        <li><b>بيانات الحافلة والسائق</b> + زر تواصل داخل التطبيق</li>
-        <li><b>تقييم الرحلة والسائق</b> بعد كل رحلة + زر «بلاغ مشكلة»</li>
+  <div class="roles">
+    <div class="role student">
+      <div class="hd"><div class="ic"><svg class="i"><use href="#i-grad"/></svg></div><h3>تطبيق الطالب</h3><span class="hint">(تجربة أقرب لتطبيقات النقل الذكي مثل أوبر وكريم)</span></div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>خريطة حية</b> لموقع الحافلة وخط سيرها – مع تنبيه «آخر تحديث منذ X دقيقة» إذا انقطع البث</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>مواعيد كل محطة محسوبة لحظياً:</b> «حافلتك تصل محطتك بعد ~X دقيقة»</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>حجز موعد العودة</b> من اليوم السابق بضغطة واحدة + قائمة انتظار عند اكتمال المقاعد</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>زر «أنا جاهز»:</b> الطالب في المحطة يظهر كنقطة استلام على خريطة السائق</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>بطاقة ركوب QR</b> مربوطة بالاشتراك بدل الكارنيه الورقي – تُمسح عند الباب</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>دفع الاشتراك أو تذكرة الرحلة</b> من التطبيق عبر بوابة دفع إلكتروني</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>إشعارات موجهة:</b> «حافلتك ستتحرك خلال 5 دقائق» – لرحلتك فقط</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>بيانات الحافلة والسائق</b> + زر تواصل داخل التطبيق</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>تقييم الرحلة والسائق</b> بعد كل رحلة + زر «بلاغ مشكلة»</span></li>
       </ul>
     </div>
-    <div class="feat">
-      <h3><span class="badge">س</span> تطبيق السائق</h3>
-      <ul class="dots">
-        <li><b>واجهة بسيطة جداً: «ابدأ الرحلة» ثم «أنهِ الرحلة»</b> – لا خطوات أخرى</li>
-        <li><b>بثّ الموقع تلقائياً</b> في الخلفية أثناء الرحلة فقط (حفاظاً على البطارية)</li>
-        <li><b>خريطة تعرض نقاط الاستلام:</b> عدد الطلاب المنتظرين في كل محطة على خطه</li>
-        <li><b>عداد ركاب حي</b> من مسح بطاقات QR</li>
-        <li><b>أزرار حالة جاهزة:</b> «عند البوابة / بدأ التحميل / سأتحرك خلال 5 د»</li>
+    <div class="role driver">
+      <div class="hd"><div class="ic"><svg class="i"><use href="#i-steer"/></svg></div><h3>تطبيق السائق</h3></div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>واجهة بسيطة جداً: «ابدأ الرحلة» ثم «أنهِ الرحلة»</b> – لا خطوات أخرى</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>بثّ الموقع تلقائياً</b> في الخلفية أثناء الرحلة فقط (حفاظاً على البطارية)</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>خريطة تعرض نقاط الاستلام:</b> عدد الطلاب المنتظرين في كل محطة على خطه</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>عداد ركاب حي</b> من مسح بطاقات QR</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>أزرار حالة جاهزة:</b> «عند البوابة / بدأ التحميل / سأتحرك خلال 5 د»</span></li>
       </ul>
     </div>
-    <div class="feat">
-      <h3><span class="badge">إ</span> لوحة الإدارة</h3>
-      <ul class="dots">
-        <li><b>نشر رحلات اليوم بضغطتين</b> من قوالب جاهزة (خط + مواعيد)</li>
-        <li><b>لوحة طلب:</b> عدد الحجوزات لكل موعد – وإلغاء الموعد الضعيف <b>مع إشعار تلقائي لمن حجزه واقتراح البديل</b></li>
-        <li><b>إدارة الاشتراكات والمدفوعات:</b> متابعة المشتركين والتحصيل الإلكتروني</li>
-        <li><b>إعلانات مجدولة ورسائل طوارئ</b> + سياسات مثبتة (آخر موعد عودة، قواعد الركوب)</li>
-        <li><b>تقارير قابلة للتصدير PDF/Excel:</b> أعداد الركاب الفعلية، الالتزام بالمواعيد، الخطوط الأعلى طلباً</li>
-        <li><b>كشف ركوب يدوي احتياطي</b> عند تعذر مسح بطاقات QR</li>
+    <div class="role admin">
+      <div class="hd"><div class="ic"><svg class="i"><use href="#i-dash"/></svg></div><h3>لوحة الإدارة</h3></div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>نشر رحلات اليوم بضغطتين</b> من قوالب جاهزة (خط + مواعيد)</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>لوحة طلب:</b> عدد الحجوزات لكل موعد – وإلغاء الموعد الضعيف <b>مع إشعار تلقائي لمن حجزه واقتراح البديل</b></span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>إدارة الاشتراكات والمدفوعات:</b> متابعة المشتركين والتحصيل الإلكتروني</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>إعلانات مجدولة ورسائل طوارئ</b> + سياسات مثبتة (آخر موعد عودة، قواعد الركوب)</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>تقارير قابلة للتصدير PDF/Excel:</b> أعداد الركاب الفعلية، الالتزام بالمواعيد، الخطوط الأعلى طلباً</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>كشف ركوب يدوي احتياطي</b> عند تعذر مسح بطاقات QR</span></li>
       </ul>
     </div>
   </div>
 
-  <div class="note green"><b>مبدأ التصميم الأساسي:</b> كل ما كان المشرف يكتبه يدوياً في الواتساب يتحول إلى زر أو بطاقة جاهزة – نشر الرحلة ضغطتين، تحديث الحالة ضغطة، وإشعار الطلاب تلقائي. وأي إجراء يستغرق أكثر من 30 ثانية لن يُستخدم.</div>
+  <div class="callout green"><div class="ic"><svg class="i"><use href="#i-bulb"/></svg></div><div><b class="t">مبدأ التصميم الأساسي:</b> كل ما كان المشرف يكتبه يدوياً في الواتساب يتحول إلى زر أو بطاقة جاهزة – نشر الرحلة ضغطتين، تحديث الحالة ضغطة، وإشعار الطلاب تلقائي. وأي إجراء يستغرق أكثر من 30 ثانية لن يُستخدم.</div></div>
 
-  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 2</span></div>
+  <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">3</span></div>
 </div>
 
-<!-- ==================== صفحة 3: السيناريو ==================== -->
+<!-- ==================== صفحة 4: السيناريو ==================== -->
 <div class="page">
-  <h2><span class="n">3.</span> يوم واحد مع النظام</h2>
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
+
+  <div class="sec"><span class="num">3</span><h2>يوم واحد مع النظام</h2></div>
   <p class="lead">سيناريو تشغيل فعلي يوضح كيف يعمل النظام من وجهة نظر الطالب والسائق والإدارة – على خط دماريس كمثال.</p>
 
-  <div class="tl">
-    <div class="step admin">
-      <div class="t">مساء اليوم السابق</div>
-      <div class="d"><span class="who">الإدارة</span> تنشر رحلات الغد من القوالب الجاهزة بضغطتين. <span class="who">أحمد</span> يفتح التطبيق ويحجز موعد العودة الساعة 2:00.</div>
-    </div>
-    <div class="step driver">
-      <div class="t">7:00 صباحاً</div>
-      <div class="d"><span class="who">السائق</span> يضغط «ابدأ الرحلة» – فتظهر الحافلة فوراً على خريطة كل طلاب الخط، ويبدأ بثّ الموقع في الخلفية.</div>
-    </div>
-    <div class="step student">
-      <div class="t">7:10</div>
-      <div class="d"><span class="who">أحمد</span> يفتح التطبيق في البيت: «حافلتك تصل محطتك بعد 12 دقيقة». يخرج في الوقت المناسب بدل الانتظار في الشارع أو الاتصال بالسائق.</div>
-    </div>
-    <div class="step student">
-      <div class="t">7:20</div>
-      <div class="d">عند المحطة يضغط <b>«أنا جاهز»</b> – فيرى <span class="who">السائق</span> على خريطته: «3 طلاب ينتظرون في محطة دماريس» دون أي أسماء.</div>
-    </div>
-    <div class="step student">
-      <div class="t">7:25</div>
-      <div class="d">إشعار: «الحافلة اقتربت من محطتك». يركب ويُمسح <b>QR</b> – يتأكد النظام من سريان اشتراكه، ويرتفع العداد إلى 28 من 50 مقعداً.</div>
-    </div>
-    <div class="step driver">
-      <div class="t">7:55</div>
-      <div class="d"><span class="who">السائق</span> يصل الجامعة ويضغط «أنهِ الرحلة» – يتوقف البث وتُسجَّل الرحلة في سجله اليومي.</div>
-    </div>
-    <div class="step admin">
-      <div class="t">11:00</div>
-      <div class="d"><span class="who">الإدارة</span> تلاحظ في لوحة الطلب أن موعد 12:00 عليه 6 حجوزات فقط – فتدمجه مع موعد 1:00 بضغطة، ويصل الستة إشعار تلقائي بالموعد البديل. رحلة أقل وسولار أقل.</div>
-    </div>
-    <div class="step student">
-      <div class="t">2:00 ظهراً</div>
-      <div class="d">رحلة العودة اكتملت – الطلاب في <b>قائمة الانتظار</b> يصلهم إشعار بأقرب رحلة متاحة بدل الوقوف عند البوابة بلا معلومة.</div>
-    </div>
-    <div class="step admin">
-      <div class="t">نهاية اليوم</div>
-      <div class="d"><span class="who">الإدارة</span> تجد تقريراً جاهزاً: عدد ركاب كل رحلة، الرحلات المدموجة، والتزام كل سائق بمواعيده – قابل للتصدير PDF/Excel.</div>
-    </div>
+  <div class="legend">
+    <span><i style="background:var(--blue)"></i>الطالب</span>
+    <span><i style="background:var(--green)"></i>السائق</span>
+    <span><i style="background:var(--gold)"></i>الإدارة</span>
   </div>
 
-  <div class="note green"><b>الفرق:</b> في هذا اليوم لم يتصل أي طالب بالسائق، ولم يكتب المشرف رسالة واحدة يدوياً، ولم تتحرك حافلة شبه فارغة – وكل راكب موثّق.</div>
+  <div class="tl">
+    <div class="step admin"><div class="t">مساء اليوم السابق</div><div class="d"><span class="who">الإدارة</span> تنشر رحلات الغد من القوالب الجاهزة بضغطتين. <span class="who" style="color:var(--blue)">أحمد</span> يفتح التطبيق ويحجز موعد العودة الساعة 2:00.</div></div>
+    <div class="step driver"><div class="t">7:00 صباحاً</div><div class="d"><span class="who">السائق</span> يضغط «ابدأ الرحلة» – فتظهر الحافلة فوراً على خريطة كل طلاب الخط، ويبدأ بثّ الموقع في الخلفية.</div></div>
+    <div class="step student"><div class="t">7:10</div><div class="d"><span class="who">أحمد</span> يفتح التطبيق في البيت: «حافلتك تصل محطتك بعد 12 دقيقة». يخرج في الوقت المناسب بدل الانتظار في الشارع أو الاتصال بالسائق.</div></div>
+    <div class="step student"><div class="t">7:20</div><div class="d">عند المحطة يضغط <b>«أنا جاهز»</b> – فيرى <span class="who" style="color:var(--green)">السائق</span> على خريطته: «3 طلاب ينتظرون في محطة دماريس» دون أي أسماء.</div></div>
+    <div class="step student"><div class="t">7:25</div><div class="d">إشعار: «الحافلة اقتربت من محطتك». يركب ويُمسح <b>QR</b> – يتأكد النظام من سريان اشتراكه، ويرتفع العداد إلى 28 من 50 مقعداً.</div></div>
+    <div class="step driver"><div class="t">7:55</div><div class="d"><span class="who">السائق</span> يصل الجامعة ويضغط «أنهِ الرحلة» – يتوقف البث وتُسجَّل الرحلة في سجله اليومي.</div></div>
+    <div class="step admin"><div class="t">11:00</div><div class="d"><span class="who">الإدارة</span> تلاحظ في لوحة الطلب أن موعد 12:00 عليه 6 حجوزات فقط – فتدمجه مع موعد 1:00 بضغطة، ويصل الستة إشعار تلقائي بالموعد البديل. رحلة أقل وسولار أقل.</div></div>
+    <div class="step student"><div class="t">2:00 ظهراً</div><div class="d">رحلة العودة اكتملت – الطلاب في <b>قائمة الانتظار</b> يصلهم إشعار بأقرب رحلة متاحة بدل الوقوف عند البوابة بلا معلومة.</div></div>
+    <div class="step admin"><div class="t">نهاية اليوم</div><div class="d"><span class="who">الإدارة</span> تجد تقريراً جاهزاً: عدد ركاب كل رحلة، الرحلات المدموجة، والتزام كل سائق بمواعيده – قابل للتصدير PDF/Excel.</div></div>
+  </div>
 
-  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 3</span></div>
+  <div class="callout hero"><div class="ic"><svg class="i"><use href="#i-check"/></svg></div><div><b class="t">الفرق:</b> في هذا اليوم لم يتصل أي طالب بالسائق، ولم يكتب المشرف رسالة واحدة يدوياً، ولم تتحرك حافلة شبه فارغة – وكل راكب موثّق.</div></div>
+
+  <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">4</span></div>
 </div>
 
-<!-- ==================== صفحة 4 ==================== -->
+<!-- ==================== صفحة 5: المقارنة ==================== -->
 <div class="page">
-  <h2><span class="n">4.</span> كيف يستبدل التطبيق سير العمل الحالي؟</h2>
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
+
+  <div class="sec"><span class="num">4</span><h2>كيف يستبدل التطبيق سير العمل الحالي؟</h2></div>
   <p class="lead">مقارنة مباشرة بين ما يحدث في مجموعة الواتساب اليوم وما يقدمه التطبيق.</p>
 
   <table class="cmp">
     <tr>
-      <th>الوضع الحالي في الواتساب</th>
-      <th>في التطبيق المقترح</th>
+      <th class="now"><span><svg class="i"><use href="#i-x"/></svg> الوضع الحالي في الواتساب</span></th>
+      <th class="new"><span><svg class="i"><use href="#i-check"/></svg> في التطبيق المقترح</span></th>
     </tr>
     <tr>
-      <td class="now"><b>المشرف يكتب يدوياً:</b> رقم الحافلة + خط السير + مواعيد كل محطة + رقم السائق</td>
-      <td class="new"><b>قالب رحلة جاهز:</b> المشرف يختار الخط والموعد ويضغط «نشر» – ومواعيد المحطات تتولد تلقائياً</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>المشرف يكتب يدوياً:</b> رقم الحافلة + خط السير + مواعيد كل محطة + رقم السائق</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>قالب رحلة جاهز:</b> المشرف يختار الخط والموعد ويضغط «نشر» – ومواعيد المحطات تتولد تلقائياً</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>رسائل متكررة:</b> «عند البوابة» / «بدأ التحميل» / «5 دقائق وتتحرك» / «تحركنا»</td>
-      <td class="new"><b>أزرار حالة جاهزة</b> ترسل إشعاراً لطلاب الرحلة المعنية فقط – وتتحدث تلقائياً من موقع الحافلة</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>رسائل متكررة:</b> «عند البوابة» / «بدأ التحميل» / «5 دقائق وتتحرك» / «تحركنا»</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>أزرار حالة جاهزة</b> ترسل إشعاراً لطلاب الرحلة المعنية فقط – وتتحدث تلقائياً من موقع الحافلة</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>استفتاء على مواعيد الغد</b>، ونتيجته تضيع، وإلغاء الموعد الضعيف بإعلان نصي</td>
-      <td class="new"><b>حجز مسبق بضغطة</b> + لوحة طلب للإدارة + إلغاء أي موعد يُشعر حاجزيه تلقائياً ويقترح البديل</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>استفتاء على مواعيد الغد</b>، ونتيجته تضيع، وإلغاء الموعد الضعيف بإعلان نصي</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>حجز مسبق بضغطة</b> + لوحة طلب للإدارة + إلغاء أي موعد يُشعر حاجزيه تلقائياً ويقترح البديل</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>الطالب لا يعرف مكان الحافلة</b> فيتصل بالسائق أو يستفسر في المجموعة</td>
-      <td class="new"><b>موقع الحافلة مباشر على الخريطة</b> + وصول متوقع لكل محطة محسوب لحظياً</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>الطالب لا يعرف مكان الحافلة</b> فيتصل بالسائق أو يستفسر في المجموعة</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>موقع الحافلة مباشر على الخريطة</b> + وصول متوقع لكل محطة محسوب لحظياً</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>رقم هاتف السائق</b> يُنشر علناً لكل الأعضاء</td>
-      <td class="new"><b>زر «تواصل مع السائق»</b> داخل التطبيق</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>رقم هاتف السائق</b> يُنشر علناً لكل الأعضاء</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>زر «تواصل مع السائق»</b> داخل التطبيق</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>فحص الكارنيه يدوياً</b> عند البوابة – «مَن لم يستلم لن يركب»</td>
-      <td class="new"><b>بطاقة QR شخصية</b> تُمسح عند الركوب – تتحقق من سريان الاشتراك وتعطي عداد ركاب حقيقياً</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>فحص الكارنيه يدوياً</b> عند البوابة – «مَن لم يستلم لن يركب»</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>بطاقة QR شخصية</b> تُمسح عند الركوب – تتحقق من سريان الاشتراك وتعطي عداد ركاب حقيقياً</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>الاشتراك يُدفع نقداً</b> ويُثبت بكارنيه ورقي سهل الإعارة أو التصوير</td>
-      <td class="new"><b>دفع إلكتروني من التطبيق</b> للاشتراك أو تذكرة الرحلة – تحصيل موثّق بالكامل</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>الاشتراك يُدفع نقداً</b> ويُثبت بكارنيه ورقي سهل الإعارة أو التصوير</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>دفع إلكتروني من التطبيق</b> للاشتراك أو تذكرة الرحلة – تحصيل موثّق بالكامل</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>«الحافلة تتحرك عندما تكتمل»</b> – لا أحد يعرف كم بقي من المقاعد</td>
-      <td class="new"><b>عداد ركاب حي</b> لكل رحلة – الطالب يرى السعة قبل أن يتحرك من مكانه</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>«الحافلة تتحرك عندما تكتمل»</b> – لا أحد يعرف كم بقي من المقاعد</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>عداد ركاب حي</b> لكل رحلة – الطالب يرى السعة قبل أن يتحرك من مكانه</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>لا يوجد أي سجل:</b> لا أعداد ركاب ولا التزام مواعيد ولا تقييم للسائقين</td>
-      <td class="new"><b>تقارير تشغيلية جاهزة للإدارة:</b> الطلب الفعلي، الالتزام بالمواعيد، تقييمات السائقين</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>لا يوجد أي سجل:</b> لا أعداد ركاب ولا التزام مواعيد ولا تقييم للسائقين</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>تقارير تشغيلية جاهزة للإدارة:</b> الطلب الفعلي، الالتزام بالمواعيد، تقييمات السائقين</span></div></td>
     </tr>
     <tr>
-      <td class="now"><b>سياسات ومواعيد عودة</b> تضيع وسط الرسائل</td>
-      <td class="new"><b>صفحة سياسات وإعلانات مثبتة</b> داخل التطبيق + إشعارات للمستجدات</td>
+      <td class="now"><div class="row"><svg class="i"><use href="#i-x"/></svg><span><b>سياسات ومواعيد عودة</b> تضيع وسط الرسائل</span></div></td>
+      <td class="new"><div class="row"><svg class="i"><use href="#i-check"/></svg><span><b>صفحة سياسات وإعلانات مثبتة</b> داخل التطبيق + إشعارات للمستجدات</span></div></td>
     </tr>
   </table>
 
-  <div class="note yellow"><b>ملاحظة خصوصية:</b> السائق يرى عدد المنتظرين ونقاط الاستلام في محطات خطه – لا يُعرض اسم الطالب ولا بياناته. بيانات الطالب الوحيدة الظاهرة هي بطاقة QR عند الركوب.</div>
+  <div class="callout yellow"><div class="ic"><svg class="i"><use href="#i-lock"/></svg></div><div><b class="t">ملاحظة خصوصية:</b> السائق يرى عدد المنتظرين ونقاط الاستلام في محطات خطه – لا يُعرض اسم الطالب ولا بياناته. بيانات الطالب الوحيدة الظاهرة هي بطاقة QR عند الركوب.</div></div>
 
-  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 4</span></div>
+  <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">5</span></div>
 </div>
 
-<!-- ==================== صفحة 4 ==================== -->
-<div class="page tight">
-  <h2><span class="n">5.</span> خطة التنفيذ المرحلية</h2>
+<!-- ==================== صفحة 6: الخطة + المتطلبات ==================== -->
+<div class="page">
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
 
-  <div class="stage">
-    <div class="num"><span class="d">1</span><span class="l">المرحلة الأولى</span></div>
-    <div class="body">
-      <h4>النواة الأساسية – تتبع وجداول وحالة الرحلة <span class="hint">(وهي نطاق الإطلاق التجريبي)</span></h4>
-      <ul class="dots">
-        <li><b>تطبيق الطالب:</b> خطوط السير، مواعيد الرحلات، موقع الحافلة مباشرة، إشعارات الحالة</li>
-        <li><b>تطبيق السائق:</b> «ابدأ/أنهِ الرحلة» وبثّ الموقع + أزرار الحالة الجاهزة</li>
-        <li><b>لوحة إدارة:</b> إدارة الخطوط والمحطات والرحلات ونشر الإعلانات</li>
-        <li><b>زر «أنا جاهز»:</b> لإظهار المنتظرين على خريطة السائق</li>
-      </ul>
+  <div class="sec"><span class="num">5</span><h2>خطة التنفيذ المرحلية</h2></div>
+
+  <div class="stages">
+    <div class="stage">
+      <div class="num"><span class="d">1</span><span class="l">المرحلة الأولى</span></div>
+      <div class="body">
+        <h4>النواة الأساسية – تتبع وجداول وحالة الرحلة <span class="hint">نطاق الإطلاق التجريبي</span></h4>
+        <ul>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>تطبيق الطالب:</b> خطوط السير، مواعيد الرحلات، موقع الحافلة مباشرة، إشعارات الحالة</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>تطبيق السائق:</b> «ابدأ/أنهِ الرحلة» وبثّ الموقع + أزرار الحالة الجاهزة</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>لوحة إدارة:</b> إدارة الخطوط والمحطات والرحلات ونشر الإعلانات</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>زر «أنا جاهز»:</b> لإظهار المنتظرين على خريطة السائق</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="num"><span class="d">2</span><span class="l">المرحلة الثانية</span></div>
+      <div class="body">
+        <h4>إدارة الطلب والركوب</h4>
+        <ul>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>حجز موعد العودة مسبقاً</b> + قائمة انتظار + لوحة طلب للإدارة + إشعار تلقائي عند إلغاء موعد</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>بطاقة QR للركوب</b> مربوطة بالاشتراك + عداد ركاب حي (بديل الكارنيه الورقي)</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>دفع إلكتروني من التطبيق</b> عبر بوابة دفع: الاشتراك، تذكرة الرحلة، والاشتراكات المرنة</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>بيانات الحافلة والسائق</b> + التواصل الداخلي</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="num"><span class="d">3</span><span class="l">المرحلة الثالثة</span></div>
+      <div class="body">
+        <h4>التحسين والذكاء</h4>
+        <ul>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>تقييم الرحلة والسائق</b> + «بلاغ مشكلة» + تقارير تشغيلية قابلة للتصدير PDF/Excel</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>مساعد ذكي:</b> الطالب يرفع جدوله الدراسي فيُقترح أنسب موعد لكل يوم</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>توصية بديلة تلقائية:</b> «فاتك الموعد؟ أقرب رحلة متاحة: …»</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>إعلانات ورعايات:</b> مساحات إعلانية ورعاية خطوط بأعداد ركاب موثّقة</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="stage">
-    <div class="num"><span class="d">2</span><span class="l">المرحلة الثانية</span></div>
-    <div class="body">
-      <h4>إدارة الطلب والركوب</h4>
-      <ul class="dots">
-        <li><b>حجز موعد العودة مسبقاً</b> + قائمة انتظار + لوحة طلب للإدارة + إشعار تلقائي عند إلغاء موعد</li>
-        <li><b>بطاقة QR للركوب</b> مربوطة بالاشتراك + عداد ركاب حي (بديل الكارنيه الورقي)</li>
-        <li><b>دفع إلكتروني من التطبيق</b> عبر بوابة دفع: الاشتراك، تذكرة الرحلة، والاشتراكات المرنة</li>
-        <li><b>بيانات الحافلة والسائق</b> + التواصل الداخلي</li>
-      </ul>
-    </div>
+  <div class="sec mt"><span class="num">6</span><h2>ما نحتاجه من الجامعة</h2></div>
+  <div class="reqs">
+    <div class="req"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div><span><b>اعتماد رسمي للتطبيق</b> كقناة النقل المعتمدة، وإلزام السائقين بتشغيله أثناء الرحلات كجزء من مهام عملهم (هاتف السائق هو جهاز التتبع – لا أجهزة إضافية).</span></div>
+    <div class="req"><div class="ic"><svg class="i"><use href="#i-doc"/></svg></div><span><b>بيانات التشغيل الأولية:</b> الخطوط والمحطات والمواعيد الحالية وأسماء الحافلات – تُدخل مرة واحدة ثم تدار من لوحة الإدارة.</span></div>
+    <div class="req"><div class="ic"><svg class="i"><use href="#i-users"/></svg></div><span><b>بيانات المشتركين الحاليين</b> لربط بطاقات QR بالاشتراكات السارية – مع إمكانية الربط المباشر بالسجل الطلابي لاحقاً.</span></div>
+    <div class="req"><div class="ic"><svg class="i"><use href="#i-wallet"/></svg></div><span><b>موافقة على التحصيل الإلكتروني</b> للاشتراكات والتذاكر عبر بوابة دفع على حساب الجامعة.</span></div>
+    <div class="req"><div class="ic"><svg class="i"><use href="#i-flag"/></svg></div><span><b>إطلاق تجريبي للمرحلة الأولى</b> (التتبع والجداول والإشعارات) على خط أو خطين لفترة قصيرة تحددها الإدارة، مع بقاء مجموعة الواتساب احتياطياً خلال الفترة الانتقالية.</span></div>
   </div>
 
-  <div class="stage">
-    <div class="num"><span class="d">3</span><span class="l">المرحلة الثالثة</span></div>
-    <div class="body">
-      <h4>التحسين والذكاء</h4>
-      <ul class="dots">
-        <li><b>تقييم الرحلة والسائق</b> + «بلاغ مشكلة» + تقارير تشغيلية قابلة للتصدير PDF/Excel</li>
-        <li><b>مساعد ذكي:</b> الطالب يرفع جدوله الدراسي فيُقترح أنسب موعد لكل يوم</li>
-        <li><b>توصية بديلة تلقائية:</b> «فاتك الموعد؟ أقرب رحلة متاحة: …»</li>
-        <li><b>إعلانات ورعايات:</b> مساحات إعلانية ورعاية خطوط بأعداد ركاب موثّقة</li>
-      </ul>
-    </div>
-  </div>
-
-  <h2><span class="n">6.</span> ما نحتاجه من الجامعة</h2>
-  <ul class="plain">
-    <li><b>اعتماد رسمي للتطبيق</b> كقناة النقل المعتمدة، وإلزام السائقين بتشغيله أثناء الرحلات كجزء من مهام عملهم (هاتف السائق هو جهاز التتبع – لا أجهزة إضافية).</li>
-    <li><b>بيانات التشغيل الأولية:</b> الخطوط والمحطات والمواعيد الحالية وأسماء الحافلات – تُدخل مرة واحدة ثم تدار من لوحة الإدارة.</li>
-    <li><b>بيانات المشتركين الحاليين</b> لربط بطاقات QR بالاشتراكات السارية – مع إمكانية الربط المباشر بالسجل الطلابي لاحقاً.</li>
-    <li><b>موافقة على التحصيل الإلكتروني</b> للاشتراكات والتذاكر عبر بوابة دفع على حساب الجامعة.</li>
-    <li><b>إطلاق تجريبي للمرحلة الأولى</b> (التتبع والجداول والإشعارات) على خط أو خطين لفترة قصيرة تحددها الإدارة، مع بقاء مجموعة الواتساب احتياطياً خلال الفترة الانتقالية.</li>
-  </ul>
-
-  <div class="foot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">صفحة 5</span></div>
+  <div class="pfoot"><span>مقترح نظام إدارة وتتبع حافلات نقل الطلاب</span><span class="pg">6</span></div>
 </div>
 
-<!-- ==================== صفحة 5 ==================== -->
-<div class="page tight">
-  <h2><span class="n">7.</span> الجدوى الاقتصادية</h2>
+<!-- ==================== صفحة 7: الجدوى + الفوائد ==================== -->
+<div class="page">
+  <div class="phead"><span class="brand"><span class="dot"></span>نظام إدارة وتتبع حافلات نقل الطلاب</span><span>فريق إنجاز</span></div>
+
+  <div class="sec"><span class="num">7</span><h2>الجدوى الاقتصادية</h2></div>
   <p class="lead">التطبيق لا يضيف عبئاً على الميزانية – بل يوفّر في تكلفة التشغيل، ويحمي دخل الاشتراكات، ويفتح مصادر دخل جديدة من نفس الأسطول الحالي:</p>
 
-  <h3 class="grp">توفير في التشغيل</h3>
-  <ul class="plain">
-    <li><b>دمج وإلغاء الرحلات الضعيفة:</b> لوحة الطلب توضح عدد الحاجزين لكل موعد مسبقاً – فتُدمج الرحلات قليلة الحمولة أو تُلغى قبلها بيوم، بدل تحرك حافلات شبه فارغة. توفير مباشر في السولار والصيانة.</li>
-    <li><b>توزيع الحافلات حسب الطلب الفعلي:</b> بيانات الركوب توضح الخطوط الأعلى طلباً – فتُوجَّه الحافلات حيث الحاجة الحقيقية بدل التوزيع الثابت.</li>
-  </ul>
+  <div class="econ">
+    <div class="ecard save">
+      <div class="side"><div class="ic"><svg class="i"><use href="#i-down"/></svg></div>توفير في التشغيل</div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>دمج وإلغاء الرحلات الضعيفة:</b> لوحة الطلب توضح عدد الحاجزين لكل موعد مسبقاً – فتُدمج الرحلات قليلة الحمولة أو تُلغى قبلها بيوم، بدل تحرك حافلات شبه فارغة. توفير مباشر في السولار والصيانة.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>توزيع الحافلات حسب الطلب الفعلي:</b> بيانات الركوب توضح الخطوط الأعلى طلباً – فتُوجَّه الحافلات حيث الحاجة الحقيقية بدل التوزيع الثابت.</span></li>
+      </ul>
+    </div>
+    <div class="ecard protect">
+      <div class="side"><div class="ic"><svg class="i"><use href="#i-shield"/></svg></div>حماية دخل الاشتراكات</div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>بطاقة QR مربوطة بالاشتراك:</b> كل مسحة تتحقق أن اشتراك الطالب سارٍ وأن البطاقة تخص صاحبها – فلا ركوب بدون اشتراك ولا كارنيهات مُعارة أو مصوّرة.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>دفع الاشتراك من التطبيق:</b> عبر بوابة دفع إلكتروني – تحصيل أسرع وموثّق بالكامل، بلا طوابير ولا تعامل نقدي ولا طباعة كارنيهات.</span></li>
+      </ul>
+    </div>
+    <div class="ecard income">
+      <div class="side"><div class="ic"><svg class="i"><use href="#i-coins"/></svg></div>مصادر دخل جديدة</div>
+      <ul>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>تذكرة بالرحلة لغير المشتركين:</b> الطالب الذي يحضر أياماً قليلة يحجز رحلته ويدفع ثمنها فقط – دخل إضافي من مقاعد كانت ستتحرك فارغة.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>اشتراكات مرنة:</b> شهري، أو اتجاه واحد (ذهاب أو عودة)، أو أيام محددة – لجذب شرائح لا تشترك حالياً.</span></li>
+        <li><svg class="i"><use href="#i-check"/></svg><span><b>إعلانات ورعايات بأرقام موثّقة:</b> أعداد الركاب الفعلية لكل خط تجعل مساحات الإعلان على الحافلات وداخل التطبيق ورعاية الخطوط قابلة للتسعير والبيع للأعمال المحلية.</span></li>
+      </ul>
+    </div>
+  </div>
 
-  <h3 class="grp">حماية دخل الاشتراكات</h3>
-  <ul class="plain">
-    <li><b>بطاقة QR مربوطة بالاشتراك:</b> كل مسحة تتحقق أن اشتراك الطالب سارٍ وأن البطاقة تخص صاحبها – فلا ركوب بدون اشتراك ولا كارنيهات مُعارة أو مصوّرة.</li>
-    <li><b>دفع الاشتراك من التطبيق:</b> عبر بوابة دفع إلكتروني – تحصيل أسرع وموثّق بالكامل، بلا طوابير ولا تعامل نقدي ولا طباعة كارنيهات.</li>
-  </ul>
+  <div class="sec mt"><span class="num">8</span><h2>الفوائد المتوقعة</h2></div>
+  <div class="bens">
+    <div class="ben s"><div class="ic"><svg class="i"><use href="#i-grad"/></svg></div><div><h4>للطالب</h4><p>معرفة مكان حافلته ووقت وصولها بدقة – بلا انتظار مبهم وبلا اتصالات.</p></div></div>
+    <div class="ben d"><div class="ic"><svg class="i"><use href="#i-steer"/></svg></div><div><h4>للسائق</h4><p>رؤية الطلب الفعلي على خطه، وانتهاء اتصالات الطلاب الفردية.</p></div></div>
+    <div class="ben a"><div class="ic"><svg class="i"><use href="#i-dash"/></svg></div><div><h4>للإدارة</h4><p>قرارات بالأرقام (إلغاء/إضافة مواعيد حسب الطلب الحقيقي)، التحقق الآلي من الاشتراك، وتقارير أداء للسائقين والخطوط.</p></div></div>
+    <div class="ben u"><div class="ic"><svg class="i"><use href="#i-uni"/></svg></div><div><h4>للجامعة</h4><p>تكلفة تشغيل أقل، دخل اشتراكات محمي، مصادر دخل جديدة، وخدمة نقل أكثر أماناً وتنظيماً.</p></div></div>
+  </div>
 
-  <h3 class="grp">مصادر دخل جديدة</h3>
-  <ul class="plain">
-    <li><b>تذكرة بالرحلة لغير المشتركين:</b> الطالب الذي يحضر أياماً قليلة يحجز رحلته ويدفع ثمنها فقط – دخل إضافي من مقاعد كانت ستتحرك فارغة.</li>
-    <li><b>اشتراكات مرنة:</b> شهري، أو اتجاه واحد (ذهاب أو عودة)، أو أيام محددة – لجذب شرائح لا تشترك حالياً.</li>
-    <li><b>إعلانات ورعايات بأرقام موثّقة:</b> أعداد الركاب الفعلية لكل خط تجعل مساحات الإعلان على الحافلات وداخل التطبيق ورعاية الخطوط قابلة للتسعير والبيع للأعمال المحلية.</li>
-  </ul>
+  <div class="callout hero"><div class="ic"><svg class="i"><use href="#i-send"/></svg></div><div><b class="t">البداية المقترحة:</b> تجربة المرحلة الأولى على خط أو خطين لفترة قصيرة – بلا تكلفة أجهزة وبلا تعطيل للنظام الحالي. إذا نجحت التجربة يُعمم التطبيق على بقية الخطوط، وتُضاف المرحلتان الثانية والثالثة تدريجياً.</div></div>
 
-  <h2><span class="n">8.</span> الفوائد المتوقعة</h2>
-  <ul class="plain">
-    <li><b>للطالب:</b> معرفة مكان حافلته ووقت وصولها بدقة – بلا انتظار مبهم وبلا اتصالات.</li>
-    <li><b>للسائق:</b> رؤية الطلب الفعلي على خطه، وانتهاء اتصالات الطلاب الفردية.</li>
-    <li><b>للإدارة:</b> قرارات بالأرقام (إلغاء/إضافة مواعيد حسب الطلب الحقيقي)، التحقق الآلي من الاشتراك، وتقارير أداء للسائقين والخطوط.</li>
-    <li><b>للجامعة:</b> تكلفة تشغيل أقل، دخل اشتراكات محمي، مصادر دخل جديدة، وخدمة نقل أكثر أماناً وتنظيماً.</li>
-  </ul>
-
-  <div class="note green"><b>البداية المقترحة:</b> تجربة المرحلة الأولى على خط أو خطين لفترة قصيرة – بلا تكلفة أجهزة وبلا تعطيل للنظام الحالي. إذا نجحت التجربة يُعمم التطبيق على بقية الخطوط، وتُضاف المرحلتان الثانية والثالثة تدريجياً.</div>
-
-  <div class="foot"><span>مقترح مقدَّم من فريق إنجاز – engaz.tech – أكتوبر 2026</span><span class="pg">صفحة 6</span></div>
+  <div class="pfoot"><span>مقترح مقدَّم من فريق إنجاز – engaz.tech – أكتوبر 2026</span><span class="pg">7</span></div>
 </div>
 
 </body>
