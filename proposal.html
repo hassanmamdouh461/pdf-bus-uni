@@ -99,7 +99,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .cover { padding: 0; }
 .cover::before { display: none; }
 .cover-top {
-  height: 178mm; position: relative; overflow: hidden;
+  height: 192mm; position: relative; overflow: hidden;
   background: linear-gradient(150deg, #0a3360 0%, #0b3b6f 35%, #0f6470 70%, #12806a 100%);
   color: #fff; padding: 20mm 18mm 0;
 }
@@ -115,16 +115,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .cover h1 span { color: #7ff0cf; }
 .cover .desc { margin-top: 12px; font-size: 11pt; line-height: 1.85; opacity: .92; max-width: 150mm; }
 .cover .route { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62mm; }
-.cover-bottom { padding: 12mm 18mm 0; }
-.meta { display: flex; gap: 10px; }
-.meta .m {
-  flex: 1; background: var(--soft); border: 1px solid var(--line); border-radius: 12px;
-  padding: 10px 14px; display: flex; gap: 10px; align-items: center;
-}
-.meta .m .ic { width: 32px; height: 32px; border-radius: 9px; background: var(--sky); color: var(--blue); display: flex; align-items: center; justify-content: center; }
-.meta .m small { display: block; color: var(--muted); font-size: 8.5pt; line-height: 1.3; }
-.meta .m div b { color: var(--blue); font-size: 10pt; line-height: 1.4; }
-.toc { margin-top: 10mm; }
+.cover-bottom { padding: 20mm 18mm 0; }
 .toc h3 { font-size: 12pt; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .toc h3::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: var(--green); }
 .toc ol { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
@@ -347,12 +338,6 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
   </div>
 
   <div class="cover-bottom">
-    <div class="meta">
-      <div class="m"><div class="ic"><svg class="i"><use href="#i-team"/></svg></div><div><small>مقدَّم من</small><b>فريق إنجاز</b></div></div>
-      <div class="m"><div class="ic"><svg class="i"><use href="#i-uni"/></svg></div><div><small>مقدَّم إلى</small><b>إدارة الجامعة – النقل</b></div></div>
-      <div class="m"><div class="ic"><svg class="i"><use href="#i-cal"/></svg></div><div><small>التاريخ</small><b>أكتوبر 2026</b></div></div>
-    </div>
-
     <div class="toc">
       <h3>محتويات المقترح</h3>
       <ol>
