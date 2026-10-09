@@ -26,7 +26,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 @page { size: A4; margin: 0; }
 html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-body { font-family: 'Tajawal', sans-serif; color: var(--ink); font-size: 10pt; line-height: 1.7; background: #fff; }
+body { font-family: 'Tajawal', sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.7; background: #fff; }
 b { font-weight: 700; }
 svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
@@ -70,14 +70,14 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .sec h2 { font-size: 17pt; color: var(--blue); font-weight: 700; white-space: nowrap; }
 .sec::after { content: ''; flex: 1; height: 2px; background: linear-gradient(270deg, var(--line), transparent); }
 .sec.mt { margin-top: 18px; }
-.lead { color: #34475b; margin-bottom: 12px; font-size: 10pt; }
-.sub { font-size: 11.5pt; color: var(--blue); font-weight: 700; margin: 6px 0 10px; display: flex; align-items: center; gap: 8px; }
+.lead { color: #34475b; margin-bottom: 12px; font-size: 10.6pt; }
+.sub { font-size: 12pt; color: var(--blue); font-weight: 700; margin: 6px 0 10px; display: flex; align-items: center; gap: 8px; }
 .sub::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: var(--green); }
 
 /* ===== ملاحظات ===== */
 .callout {
   display: flex; gap: 12px; align-items: flex-start;
-  border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 9.9pt;
+  border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 10.4pt;
 }
 .callout .ic {
   width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center;
@@ -113,7 +113,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .cover .kick { margin-top: 18mm; font-size: 11pt; opacity: .8; letter-spacing: .3px; }
 .cover h1 { font-size: 33pt; line-height: 1.35; font-weight: 700; margin-top: 4px; }
 .cover h1 span { color: #7ff0cf; }
-.cover .desc { margin-top: 12px; font-size: 11pt; line-height: 1.85; opacity: .92; max-width: 150mm; }
+.cover .desc { margin-top: 12px; font-size: 11.5pt; line-height: 1.85; opacity: .92; max-width: 155mm; }
 .cover .route { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62mm; }
 .cover-bottom { padding: 20mm 18mm 0; }
 .toc h3 { font-size: 12pt; color: var(--blue); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
@@ -121,7 +121,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .toc ol { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
 .toc li {
   display: flex; align-items: center; gap: 10px; padding: 7px 0;
-  border-bottom: 1px dashed var(--line); font-size: 10pt;
+  border-bottom: 1px dashed var(--line); font-size: 10.6pt;
 }
 .toc li .n { width: 22px; height: 22px; border-radius: 6px; background: var(--sky); color: var(--blue); font-weight: 700; font-size: 9pt; display: flex; align-items: center; justify-content: center; }
 .toc li .p { margin-right: auto; color: var(--muted); font-size: 9pt; }
@@ -133,8 +133,8 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
   padding: 12px 14px; display: flex; gap: 11px; align-items: flex-start;
 }
 .prob .ic { width: 34px; height: 34px; border-radius: 10px; background: var(--rose); color: var(--red); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.prob h4 { color: var(--red); font-size: 10.5pt; margin-bottom: 2px; }
-.prob p { font-size: 9.5pt; color: #3b4d60; line-height: 1.65; }
+.prob h4 { color: var(--red); font-size: 11pt; margin-bottom: 2px; }
+.prob p { font-size: 10pt; color: #3b4d60; line-height: 1.65; }
 
 /* ===== كروت الأدوار ===== */
 .roles { display: flex; flex-direction: column; gap: 10px; }
@@ -153,7 +153,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .role.admin .hd .ic { background: var(--gold); }
 .role.admin .hd h3 { color: #8a6500; }
 .role ul { list-style: none; padding: 7px 14px 8px; }
-.role li { display: flex; gap: 8px; align-items: flex-start; font-size: 9.6pt; line-height: 1.6; padding: 2px 0; }
+.role li { display: flex; gap: 8px; align-items: flex-start; font-size: 10.2pt; line-height: 1.6; padding: 2px 0; }
 .role li svg.i { width: 14px; height: 14px; margin-top: 3px; stroke-width: 2.6; }
 .role.student li svg.i, .role.student li b { color: var(--blue); }
 .role.driver li svg.i, .role.driver li b { color: var(--green); }
@@ -161,7 +161,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .role.admin li b { color: #8a6500; }
 
 /* ===== السيناريو ===== */
-.legend { display: flex; gap: 16px; font-size: 9pt; color: var(--muted); margin-bottom: 10px; }
+.legend { display: flex; gap: 16px; font-size: 9.5pt; color: var(--muted); margin-bottom: 10px; }
 .legend span { display: flex; align-items: center; gap: 6px; }
 .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .tl { position: relative; padding-right: 26px; }
@@ -172,12 +172,12 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
   width: 12px; height: 12px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px var(--line);
 }
 .step .t {
-  width: fit-content; flex-shrink: 0; text-align: center; font-weight: 700; font-size: 9pt;
+  width: fit-content; flex-shrink: 0; text-align: center; font-weight: 700; font-size: 9.5pt;
   border-radius: 20px; padding: 3px 10px; margin-top: 4px;
 }
 .step .d {
   flex: 1; background: var(--soft); border: 1px solid var(--line); border-radius: 10px;
-  padding: 8px 12px; font-size: 9.7pt; line-height: 1.65;
+  padding: 8px 12px; font-size: 10.2pt; line-height: 1.65;
 }
 .step.student::before { background: var(--blue); }
 .step.student .t { background: var(--sky); color: var(--blue); }
@@ -191,8 +191,8 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 .step.admin .who { color: #8a6500; }
 
 /* ===== جدول المقارنة ===== */
-table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 9.6pt; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.cmp th { padding: 10px 14px; font-size: 10.5pt; color: #fff; text-align: right; }
+table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 10.2pt; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.cmp th { padding: 10px 14px; font-size: 11pt; color: #fff; text-align: right; }
 .cmp th.now { background: #8e3b33; }
 .cmp th.new { background: linear-gradient(90deg, var(--green), var(--blue)); }
 .cmp th span { display: flex; align-items: center; gap: 8px; }
@@ -218,23 +218,23 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 .stage .num .d { font-size: 20pt; font-weight: 700; line-height: 1.1; }
 .stage .num .l { font-size: 8pt; margin-top: 2px; opacity: .9; }
 .stage .body { flex: 1; }
-.stage .body h4 { color: var(--blue); font-size: 11.5pt; margin-bottom: 3px; }
+.stage .body h4 { color: var(--blue); font-size: 12pt; margin-bottom: 3px; }
 .stage .body h4 .hint { font-size: 8.8pt; font-weight: 500; color: #fff; background: var(--green); border-radius: 20px; padding: 1px 9px; margin-right: 6px; }
 .stage ul { list-style: none; }
-.stage li { display: flex; gap: 8px; align-items: flex-start; font-size: 9.6pt; line-height: 1.6; padding: 1px 0; }
+.stage li { display: flex; gap: 8px; align-items: flex-start; font-size: 10.2pt; line-height: 1.6; padding: 1px 0; }
 .stage li svg.i { width: 13px; height: 13px; margin-top: 4px; color: var(--green); stroke-width: 2.6; }
 .stage li b { color: var(--green); }
 
 /* ===== الجدوى ===== */
 .econ { display: flex; flex-direction: column; gap: 9px; }
 .ecard { border-radius: 12px; border: 1px solid var(--line); overflow: hidden; display: flex; }
-.ecard .side { width: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #fff; font-weight: 700; font-size: 10pt; text-align: center; padding: 8px; line-height: 1.35; }
+.ecard .side { width: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; color: #fff; font-weight: 700; font-size: 10.5pt; text-align: center; padding: 8px; line-height: 1.35; }
 .ecard .side .ic { width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; }
 .ecard.save .side { background: var(--green); }
 .ecard.protect .side { background: var(--blue); }
 .ecard.income .side { background: var(--gold); }
 .ecard ul { list-style: none; flex: 1; padding: 8px 14px; }
-.ecard li { font-size: 9.6pt; line-height: 1.6; padding: 2px 0; display: flex; gap: 8px; align-items: flex-start; }
+.ecard li { font-size: 10.2pt; line-height: 1.6; padding: 2px 0; display: flex; gap: 8px; align-items: flex-start; }
 .ecard li svg.i { width: 13px; height: 13px; margin-top: 4px; stroke-width: 2.6; }
 .ecard.save li svg.i, .ecard.save li b { color: var(--green); }
 .ecard.protect li svg.i, .ecard.protect li b { color: var(--blue); }
@@ -245,40 +245,40 @@ table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size
 .bens { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
 .ben { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; display: flex; gap: 10px; align-items: flex-start; background: var(--soft); }
 .ben .ic { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; color: #fff; flex-shrink: 0; }
-.ben h4 { font-size: 10.5pt; margin-bottom: 1px; }
-.ben p { font-size: 9.3pt; line-height: 1.6; color: #3b4d60; }
+.ben h4 { font-size: 11pt; margin-bottom: 1px; }
+.ben p { font-size: 9.9pt; line-height: 1.6; color: #3b4d60; }
 .ben.s .ic { background: var(--blue); } .ben.s h4 { color: var(--blue); }
 .ben.d .ic { background: var(--green); } .ben.d h4 { color: var(--green); }
 .ben.a .ic { background: var(--gold); } .ben.a h4 { color: #8a6500; }
 .ben.u .ic { background: var(--blue-2); } .ben.u h4 { color: var(--blue-2); }
 
 /* ===== ضبط المساحات لكل صفحة ===== */
-.roomy .lead { font-size: 10.6pt; margin-bottom: 16px; }
-.roomy .sub { margin: 10px 0 14px; font-size: 12.5pt; }
+.roomy .lead { font-size: 11pt; margin-bottom: 16px; }
+.roomy .sub { margin: 10px 0 14px; font-size: 13pt; }
 .roomy .probs { gap: 14px; }
 .roomy .prob { padding: 18px 16px; }
 .roomy .prob .ic { width: 40px; height: 40px; }
-.roomy .prob h4 { font-size: 11.5pt; margin-bottom: 4px; }
-.roomy .prob p { font-size: 10pt; line-height: 1.75; }
-.roomy .callout { margin-top: 20px; padding: 16px 18px; font-size: 10.3pt; }
+.roomy .prob h4 { font-size: 12pt; margin-bottom: 4px; }
+.roomy .prob p { font-size: 10.6pt; line-height: 1.75; }
+.roomy .callout { margin-top: 20px; padding: 16px 18px; font-size: 10.8pt; }
 .step { margin-bottom: 10px; display: grid; grid-template-columns: 112px 1fr; }
 .step .t { width: auto; justify-self: start; white-space: nowrap; }
 .stage { margin-bottom: 11px; padding: 13px; }
 .fill .stage { padding: 17px 15px; margin-bottom: 14px; }
-.fill .stage .body h4 { font-size: 12.5pt; margin-bottom: 6px; }
-.fill .stage li { font-size: 10.3pt; line-height: 1.8; }
+.fill .stage .body h4 { font-size: 13pt; margin-bottom: 6px; }
+.fill .stage li { font-size: 10.8pt; line-height: 1.8; }
 .fill .bens { gap: 14px; }
 .fill .ben { padding: 16px 14px; }
 .fill .ben .ic { width: 36px; height: 36px; }
-.fill .ben h4 { font-size: 11.5pt; margin-bottom: 4px; }
-.fill .ben p { font-size: 10pt; line-height: 1.75; }
-.fill .lead { font-size: 10.6pt; margin-bottom: 16px; }
+.fill .ben h4 { font-size: 12pt; margin-bottom: 4px; }
+.fill .ben p { font-size: 10.6pt; line-height: 1.75; }
+.fill .lead { font-size: 11pt; margin-bottom: 16px; }
 .fill .econ { gap: 16px; }
-.fill .ecard .side { width: 110px; font-size: 11pt; }
+.fill .ecard .side { width: 110px; font-size: 11.5pt; }
 .fill .ecard ul { padding: 16px 18px; }
-.fill .ecard li { font-size: 10.3pt; line-height: 1.85; padding: 4px 0; }
-.fill .callout.hero { margin-top: 22px; padding: 18px 20px; font-size: 10.6pt; }
-.invite { margin-top: 14px; text-align: center; font-size: 10.2pt; font-weight: 700; color: var(--blue); }
+.fill .ecard li { font-size: 10.8pt; line-height: 1.85; padding: 4px 0; }
+.fill .callout.hero { margin-top: 22px; padding: 18px 20px; font-size: 11pt; }
+.invite { margin-top: 14px; text-align: center; font-size: 10.6pt; font-weight: 700; color: var(--blue); }
 .req { padding: 10px 12px; }
 .bens { gap: 11px; }
 .ben { padding: 13px 14px; }
